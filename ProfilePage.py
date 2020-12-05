@@ -1,0 +1,108 @@
+from flask import *
+import MySQLdb.cursors
+from HelpMethods import *
+from flask_mysqldb import MySQL
+
+# DATABASE BLOCK START#
+app = Flask(__name__)
+mysql = MySQL(app)
+# DATABASE BLOCK ENDS#
+#
+#
+#
+#
+ProfilePage = Blueprint('ProfilePage', __name__, static_folder='static', template_folder='templates')
+
+
+@ProfilePage.route("/profile")
+def main_profile():
+    if 'email' in session:
+        return redirect(url_for("ProfilePage.profile", user=session['email']))
+    return "profile main"
+
+
+@ProfilePage.route('/profile/<user>', methods=['GET', 'POST'])
+def profile(user):
+    try:
+        if session['email'] == user and request.method == 'POST' and (
+                'edit-fname' in request.form or 'edit-lname' in request.form or 'edit-phone'
+                in request.form or 'edit-email' in request.form or 'edit-pw' in request.form or 'edit-adr' in request.form):
+            if request.method == 'POST' and (
+                    'edit-fname' in request.form or 'edit-lname' in request.form or 'edit-phone'
+                    in request.form or 'edit-email' in request.form or 'edit-pw' in request.form or 'edit-adr' in request.form):
+                if request.form['edit-fname'] != "":
+                    fName = request.form['edit-fname']
+                    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                    cursor.execute('UPDATE Users SET FirstName=%s WHERE Email= %s ', (fName, user,))
+                    mysql.connection.commit()
+
+                if request.form['edit-lname'] != "":
+                    lName = request.form['edit-lname']
+                    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                    cursor.execute('UPDATE Users SET LastName=%s WHERE Email= %s ', (lName, user,))
+                    mysql.connection.commit()
+
+                if request.form['edit-phone'] != "":
+                    phone = request.form['edit-phone']
+                    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                    cursor.execute('UPDATE Users SET PhoneNumber=%s WHERE Email= %s ', (phone, user,))
+                    mysql.connection.commit()
+
+                if request.form['edit-pw'] != "":
+                    pw = hashfunc(request.form['edit-pw'])
+                    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                    cursor.execute('UPDATE Users SET Password=%s WHERE Email= %s ', (pw, user,))
+                    mysql.connection.commit()
+
+                if request.form['edit-adr'] != "":
+                    adr = request.form['edit-adr']
+                    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                    cursor.execute('UPDATE Users SET Adress=%s WHERE Email= %s ', (adr, user,))
+                    mysql.connection.commit()
+
+                if request.form['edit-email'] != "":
+                    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                    cursor.execute('SELECT * FROM Users')
+                    data = cursor.fetchall()
+                    print(data)
+                    found = False
+                    for i in data:
+                        if i['Email'] == uppercase(request.form['edit-email']):
+                            found = True
+                            break
+                    if not found:
+                        print("else")
+                        email = uppercase(request.form['edit-email'])
+                        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                        cursor.execute('UPDATE Users SET Email=%s WHERE Email= %s ', (email, user,))
+                        mysql.connection.commit()
+                        session['email'] = email
+                    else:
+                        msg = "Email is already in database"
+                        return redirect(url_for("ProfilePage.profile", msg=msg, user=session['email']))
+                return redirect(url_for("ProfilePage.profile", user=session['email']))
+
+        if session['email'] == user:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Users WHERE Email =%s', (user,))
+            data = cursor.fetchone()
+            fname = data['FirstName']
+            lname = data['LastName']
+            phonenum = data['PhoneNumber']
+            email = data['Email']
+            password = "*********"
+            adress = data['Adress']
+            admin = False
+            if session['email'] == user:
+                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                if cursor.execute('SELECT * FROM Admin WHERE Email =%s', (user,)):
+                    admin = True
+                else:
+                    admin = False
+            return render_template('profile.html', firstname=fname, lastname=lname, email=email.lower(),
+                                   phonenumber=phonenum,
+                                   password=password, adress=adress,admin=admin)
+
+        return "<h1>du är inte inloggad!</h1>"
+    except:
+        return "<h1>du är inte inloggad!</h1>"

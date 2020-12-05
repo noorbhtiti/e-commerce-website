@@ -1,0 +1,52 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOUELI | D0018E </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+       <div class="navbar">
+        <div class="logo">
+             <a id="Awhite" href="/">
+                <img src="{{url_for('static', filename='logo3.png')}}" width="250ox"  />
+            </a>
+        </div>
+
+    </div>
+    </div>
+    <div class="login">
+      <div class="form-box">
+          <div class="button-box">
+              <div id="login-btn"></div>
+              <h1 id="test">
+                Verification
+              </h1>
+          </div>
+          <div>
+              <h1 id="ErrorMsg" > {{msgg}} </h1>
+          </div>
+
+          <!-- verify form -->
+          <form id="login" class="input-group" action="{{ url_for('verify') }}" method="post">
+              <input type="text" name="OTP" class="input-field" placeholder="Enter OTP" required>
+              <input id="sbtn" value="Verify" type="submit"/>
+              <h4 id="err"> Please check the email for the confirmation </h4>
+
+          </form>
+      </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

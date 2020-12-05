@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOUELI | D0018E </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+       <div class="navbar">
+        <div class="logo">
+            <a id="Awhite" href="/">
+                <img src="{{url_for('static', filename='logo3.png')}}" width="250px"  />
+            </a>
+
+        </div>
+
+         {%  if admin %}
+        <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+                <li> <a id="Awhite" href="/admin"> Admin </a> </li>
+            </ul>
+        </nav>
+       {% else %}
+              <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+            </ul>
+        </nav>
+       {% endif %}
+
+           <a href=""> <!-- link to cart-->
+               <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
+           </a>
+
+           <a href="/logout"> <!-- link to login page-->
+                <img class="btn1"  src="{{url_for('static', filename='logout.png')}}" width="30px" height="30px">
+           </a>
+
+
+
+    </div> 
+    </div>
+  </div>
+</div>
+
+<div>
+
+<div class="pbp">
+    <a id="Awhite" href="/profile" class="probtn"> Profile</a>
+    <a id="Awhite" href="/orders" class="probtn"> Orders</a>
+   <!-- <a id="Awhite" href="/shop" class="probtn"> TEXT HERE!</a>
+    <a id="Awhite" href="/shop" class="probtn"> TEXT HERE!</a>s
+    <a id="Awhite" href="/shop" class="probtn"> TEXT HERE!</a>-->
+</div>
+
+
+<div id="felmed">
+    <h3 id="textal">
+        {{ msg }}
+    </h3>
+</div>
+
+<div  class="profile-box" style="visibility: visible">
+    <div class="info-box">
+
+        <div id="pic">
+            <img id="profileimg" src="{{url_for('static', filename='userpro.png')}}" alt="profile pic" width="50px"
+                 height="50px">
+        </div>
+
+        
+        <br>
+
+        <div id="text-box1">
+            <h3 id="firstname" >First Name:</h3>
+            <h3 id="firstname" > {{ firstname }}</h3>
+        </div>
+
+        <div id="text-box2">
+            <h3 id="lastname" >Last Name:</h3>
+            <h3 id="lastname" > {{ lastname }} </h3>
+        </div>
+
+        <br>
+
+        <div id="text-box1">
+            <h3 id="email">Email:</h3>
+            <h3 id="email"> {{ email }}</h3>
+        </div>
+
+        <div id="text-box2">
+            <h3 id="phonenumber">Phone Number:</h3>
+            <h3 id="phonenumber"> {{ phonenumber }} </h3>
+        </div>
+
+        <br>
+
+        <div id="long-box">
+            <h3 id="Password">Password:</h3>
+            <h3 id="Password"> {{ password }} </h3>
+        </div>
+
+        <div id="long-box">
+            <h3 id="Adress">Adress:</h3>
+            <h3 id="Adress"> {{ adress }}</h3>
+        </div>
+
+        <br>
+    
+        <div id="style-box" style="visibility: hidden"></div>
+           
+    </div>
+
+    <div class="info-box">
+        <div id="edit-box">
+            <img id="edit-img" src="{{url_for('static', filename='edit.png')}}" alt="Edit" width="20px" height="20px">
+            <a id="edit-text" >Edit</a>
+        </div>
+    </div>
+</div>
+</div>
+
+
+  <!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <!-- msg <h1 id="ErrorMsg">text will be apper here </h1> -->
+
+        <div id="exit-box" >
+            <span class="close">&times;</span>
+        </div>
+
+        <div class="edit-form-div">
+
+            <form id="edit-form" class="edit-form" action="" method="post">
+                <input name="edit-fname" type="text" class="input-field" placeholder="First Name: {{firstname}}" >
+                <input name="edit-lname" type="text" class="input-field" placeholder="Last Name: {{lastname}}" >
+                <input name="edit-phone" type="text" class="input-field" placeholder="Phone number: {{phonenumber}}" >
+                <input name="edit-email" type="email" class="input-field" placeholder="Email: {{email}}" >
+                <input name="edit-pw" type="password" class="input-field" placeholder="Password: {{password}}" >
+                <input name="edit-adr" type="text" class="input-field" placeholder="Adress: {{adress}}" >
+                <!--<input name="confirm-pw" type="password" class="input-field" placeholder="Enter Your current
+                password" required> -->
+
+
+                <div class="info-box">
+                    <div id="edit-box">
+                        <img id="edit-img" src="{{url_for('static', filename='floppy-disk.png')}}" alt="save" width="20px" height="20px">
+                        <input id="save" value="Save" type="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("edit-text");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+
+
+
+
+</body>
+</html>

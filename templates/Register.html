@@ -1,0 +1,65 @@
+<!-- to do
+make the color read able on shop page
+make add to cart button
+make rating bar and make it change able by the user
+make cart page -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOUELI | D0018E </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+       <div class="navbar">
+        <div class="logo">
+              <a id="Awhite" href="/">
+                <img src="{{url_for('static', filename='logo3.png')}}" width="250ox"  />
+            </a>
+        </div>
+
+    </div>
+    </div>
+    <div class="login">
+      <div class="form-box">
+          <div class="button-box">
+              <div id="login-btn"></div>
+              <h1 id="test">
+                Register
+              </h1>
+          </div>
+          <h1 id="ErrorMsg" >{{ regMsg }}</h1>
+          <!-- sign up form -->
+          <form id="register" class="input-group" action="{{ url_for('RegisterPage.register') }}" method="post">
+              <input name="fName" type="text" class="input-field" placeholder="First Name" required>
+              <input name="lName" type="text" class="input-field" placeholder="Last Name" required>
+              <input name="phone" type="text" class="input-field" placeholder="Phone number" required>
+              <input name="email" type="email" class="input-field" placeholder="Enter Email" required>
+              <input name="pw" type="password" class="input-field" placeholder="Enter Password" required>
+              <input id="sbtn" value="Register" type="submit" />
+
+
+              <div class="not_reg_yet">
+                <h1 id="not_reg_yet_text" > Have an account?  <br> <a id="not_reg_yet" href="/login"> Login instead! </a> </h1>
+
+
+              </div>
+
+          </form>
+
+
+      </div>
+    </div>
+</div>
+
+</body>
+</html>

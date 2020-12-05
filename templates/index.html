@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOUELI | D0018E </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+       <div class="navbar">
+        <div class="logo">
+            <a id="Awhite" href="/">
+                <img src="{{url_for('static', filename='logo3.png')}}" width="250px"  />
+            </a>
+
+        </div>
+       {%  if logged %}
+        <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+                <li> <a id="Awhite" href="/profile"> Profile </a> </li>
+            </ul>
+        </nav>
+       {% else %}
+              <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+            </ul>
+        </nav>
+       {% endif %}
+
+           <a href=""> <!-- link to cart-->
+               <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
+           </a>
+           {% if logged %}
+               <a href="/logout"> <!-- link to login page-->
+                <img class="btn1"  src="{{url_for('static', filename='logout.png')}}" width="30px" height="30px">
+                </a>
+
+           {% else %}
+
+                <a href="/login"> <!-- link to logout page-->
+                <img class="btn1"  src="{{url_for('static', filename='user.png')}}" width="30px" height="30px">
+                </a>
+           {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-1">
+            <h1>title</h1>
+            <p>small text on the webpage</p>
+            <a id="Awhite" href="/shop" class="btn"> Shop now!</a>
+        </div>
+
+        <div class="col-1">
+        </div>
+    </div>
+    </div>
+</div>
+
+<!------- categories -------->
+
+<!--
+<div class="categories">
+
+    <div class="samll-container">
+     <div class="row">
+
+        <div class="col-3">
+            <img src="images/tsh.jpg">  //image for catefories here
+        </div>
+
+        <div class="col-3">
+            <img src="images/tsh.jpg"> //image for catefories here
+        </div>
+
+        <div class="col-3">
+            <img src="images/tsh.jpg">  //image for catefories here
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+-->
+
+<!------- categories -------->
+
+<div class="samll-container">
+    <h2 class="title"> categories </h2>
+    <div class="row">
+        <div class="col-4">
+            <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
+            <h4>product name here </h4>
+            <div class="rating">
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p class="prise"> 40.00$ </p>
+        </div>
+
+          <div class="col-4">
+            <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
+            <h4>product name here </h4>
+            <div class="rating">
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p class="prise"> 40.00$ </p>
+        </div>
+
+          <div class="col-4">
+            <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
+            <h4>product name here </h4>
+            <div class="rating">
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p class="prise"> 40.00$ </p>
+        </div>
+
+          <div class="col-4">
+            <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
+            <h4>product name here </h4>
+            <div class="rating">
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star" ></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p class="prise"> 40.00$ </p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
