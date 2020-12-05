@@ -1,0 +1,73 @@
+<!-- to do
+make the color read able on shop page
+make add to cart button
+make rating bar and make it change able by the user
+make cart page -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOUELI | D0018E </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop-style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="header">
+    <div class="header-container">
+       <div class="navbar">
+        <div class="logo">
+              <a id="Awhite" href="/">
+                <img src="{{url_for('static', filename='logo3.png')}}" width="250ox"  />
+            </a>
+        </div>
+
+           {%  if logged %}
+        <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+                <li> <a id="Awhite" href="/profile"> Profile </a> </li>
+            </ul>
+        </nav>
+            {% else %}
+              <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+            </ul>
+        </nav>
+            {% endif %}
+
+           <a href=""> <!-- link to cart-->
+               <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
+           </a>
+
+                  {% if logged %}
+               <a href="/logout"> <!-- link to login page-->
+                <img class="btn1"  src="{{url_for('static', filename='logout.png')}}" width="30px" height="30px">
+                </a>
+
+           {% else %}
+
+                <a href="/login"> <!-- link to logout page-->
+                <img class="btn1"  src="{{url_for('static', filename='user.png')}}" width="30px" height="30px">
+                </a>
+           {% endif %}
+
+
+
+    </div>
+    </div>
+    </div>
+
+</div>
+</div>
+
+</body>
+</html>
