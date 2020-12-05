@@ -57,6 +57,7 @@ class Categorys(db.Model):
 
 class CategorysView(ModelView):
     column_display_pk = True
+    form_columns = ["CategoryName",]
 
     def is_accessible(self):
         try:
@@ -73,8 +74,8 @@ class CategorysView(ModelView):
 
 class ProductsCategory(db.Model):
     # skapa en model på en befintlig tabell!!!!!!!!!!!
-    Products_ID = db.relationship("Product", backref="db941227.ProductsCategory")
-    Categorys_ID = db.relationship("Categorys", backref="db941227.ProductsCategory")
+    Products_ID = db.relationship("Product", backref="ProductsCategory")
+    Categorys_ID = db.relationship("Categorys", backref="ProductsCategory")
     __table__ = db.Model.metadata.tables['db941227.ProductsCategory']
 
     
@@ -121,6 +122,7 @@ class Product(db.Model):
 
 class ProductView(ModelView):
     form_excluded_columns = ("Rating",)
+    form_columns = ["ProductName", "ProductPrice","NumberInStock", "Description", "imageName",]
     column_display_pk = True
 
     def is_accessible(self):
