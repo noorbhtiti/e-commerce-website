@@ -9,9 +9,9 @@ mysql = MySQL(app)
 #
 #
 #
-cart = Blueprint('cart', __name__, static_folder='static', template_folder='templates')
+CartPage = Blueprint('CartPage', __name__, static_folder='static', template_folder='templates')
 
 
-@cart.route('/cart')
-def cart():
+@CartPage.route('/cart')
+def CartPage():
     return render_template('cart.html')
