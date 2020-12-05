@@ -14,13 +14,14 @@ from LoginPage import LoginPage
 from RegisterPage import RegisterPage
 from ProfilePage import ProfilePage
 
-
 app = Flask(__name__)
+
 
 app.register_blueprint(UsersViews, url_prefix="")  # www.youtube.com/watch?v=WteIH6J9v64
 app.register_blueprint(LoginPage, url_prefix="")
 app.register_blueprint(RegisterPage, url_prefix="")
 app.register_blueprint(ProfilePage, url_prefix="")
+app.register_blueprint(CartPage, url_prefix="")
 
 app.secret_key = 'thisKeyIsSoSecret'
 app.permanent_session_lifetime = timedelta(minutes=500)  # session time
@@ -45,11 +46,13 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.Username
 
+
 class Categorys(db.Model):
     __table__ = db.Model.metadata.tables['db941227.Categorys']
 
     def __repr__(self):
         return '<User %r>' % self.CategoryName
+
 
 class CategorysView(ModelView):
     def is_accessible(self):
@@ -65,16 +68,15 @@ class CategorysView(ModelView):
         return False  # This returns false only if a user is logged in, but not admin
 
 
-
-
 class ProductsCategory(db.Model):
     # skapa en model på en befintlig tabell!!!!!!!!!!!
     __table__ = db.Model.metadata.tables['db941227.ProductsCategory']
 
-    #productID = db.relationship("ProductID", backref="ProductID")
+    # productID = db.relationship("ProductID", backref="ProductID")
 
     def __repr__(self):
         return '<hasdas %r>' % self.ProductID
+
 
 class ProductsCategoryView(ModelView):
     column_list = ('CategoryID', 'ProductsID')
