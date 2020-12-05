@@ -13,6 +13,7 @@ from UsersViews import UsersViews
 from LoginPage import LoginPage
 from RegisterPage import RegisterPage
 from ProfilePage import ProfilePage
+from CartPage import CartPage
 
 app = Flask(__name__)
 
