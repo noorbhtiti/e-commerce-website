@@ -13,7 +13,7 @@ from UsersViews import UsersViews
 from LoginPage import LoginPage
 from RegisterPage import RegisterPage
 from ProfilePage import ProfilePage
-from CartPage import CartPage
+from shoppingbag import shoppingbag
 
 app = Flask(__name__)
 
@@ -22,7 +22,7 @@ app.register_blueprint(UsersViews, url_prefix="")  # www.youtube.com/watch?v=Wte
 app.register_blueprint(LoginPage, url_prefix="")
 app.register_blueprint(RegisterPage, url_prefix="")
 app.register_blueprint(ProfilePage, url_prefix="")
-app.register_blueprint(CartPage, url_prefix="")
+app.register_blueprint(shoppingbag, url_prefix="")
 
 app.secret_key = 'thisKeyIsSoSecret'
 app.permanent_session_lifetime = timedelta(minutes=500)  # session time
