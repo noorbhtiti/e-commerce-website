@@ -1,5 +1,4 @@
 # we use Flask, render_template, url_for, request, redirect, session
-#hej noor 
 from flask import *
 from datetime import timedelta
 import MySQLdb.cursors
@@ -14,7 +13,7 @@ from UsersViews import UsersViews
 from LoginPage import LoginPage
 from RegisterPage import RegisterPage
 from ProfilePage import ProfilePage
-#from flask.ext.admin.form import Select2Widget #admin för dropdown menu (kanske radera om det inte funkar)
+
 
 app = Flask(__name__)
 
@@ -80,7 +79,20 @@ class ProductsCategory(db.Model):
 class ProductsCategoryView(ModelView):
     column_list = ('CategoryID', 'ProductsID')
     form_columns = ['CategoryID', 'ProductsID',]
-    edit_columns = ['CategoryID', 'ProductsID',]
+    #edit_columns = ['CategoryID', 'ProductsID',]
+
+#    column_display_pk = True
+#    can_view_details = True
+#    form_args = dict(
+#        CategoryID=dict(
+#            query_factory=cars_with_test_desc
+#        )
+#    )
+#    form_columns = ['car', 'tyre_id', 'desc']
+
+    #column_hide_backrefs = False
+
+
     def is_accessible(self):
         try:
             email = uppercase(session['email'])
