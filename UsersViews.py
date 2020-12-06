@@ -33,7 +33,7 @@ def home():
 #
 #
 # shop block start#
-@UsersViews.route('/shop')
+@UsersViews.route('/shop', methods=['GET', 'POST'])
 def shop():
     logged = False
     try:
@@ -46,6 +46,24 @@ def shop():
     cursor.execute('SELECT * FROM Products')
     prods = cursor.fetchall()
     print(prods)
+
+    #####################################################################
+    for prod in prods:
+        x=prod['ProductID']
+        print(x)
+
+    if logged:
+        cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
+        account = cursor.fetchone()
+        userid = account['UserID']
+        if request.method == 'POST':
+            cursor.execute('INSERT INTO Cart (UserID,ProductsID ,Amount) VALUES (%s ,%s ,%s)', (userid, x, 1,))
+            mysql.connection.commit()
+
+    else:
+        print("fel")
+
+    ##############################################################################
     return render_template('Shop.html', logged=logged, prods=prods)
 
 # shop block end#

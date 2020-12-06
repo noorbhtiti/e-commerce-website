@@ -18,7 +18,6 @@ from wtforms import SelectField
 
 app = Flask(__name__)
 
-
 app.register_blueprint(UsersViews, url_prefix="")  # www.youtube.com/watch?v=WteIH6J9v64
 app.register_blueprint(LoginPage, url_prefix="")
 app.register_blueprint(RegisterPage, url_prefix="")
@@ -40,6 +39,8 @@ app.config['FLASK_ADMIN_SWATCH'] = 'Cyborg'  # http://bootswatch.com/3/ för att
 db = SQLAlchemy(app)
 db.Model.metadata.reflect(bind=db.engine, schema='db941227')
 
+
+
 class User(db.Model):
     # skapa en model på en befintlig tabell!!!!!!!!!!!
     __table__ = db.Model.metadata.tables['db941227.Users']
@@ -50,14 +51,14 @@ class User(db.Model):
 
 class Categorys(db.Model):
     __table__ = db.Model.metadata.tables['db941227.Categorys']
-    
+
     def __repr__(self):
         return self.CategoryName
 
 
 class CategorysView(ModelView):
     column_display_pk = True
-    form_columns = ["CategoryName",]
+    form_columns = ["CategoryName", ]
 
     def is_accessible(self):
         try:
@@ -78,15 +79,13 @@ class ProductsCategory(db.Model):
     Categorys_ID = db.relationship("Categorys", backref="ProductsCategory")
     __table__ = db.Model.metadata.tables['db941227.ProductsCategory']
 
-    
-
     def __repr__(self):
         return '<User %r>' % self.ProductID
 
 
 class ProductsCategoryView(ModelView):
-    column_list = ("Products_ID","Categorys_ID")
-    form_columns = ["Products_ID","Categorys_ID",]
+    column_list = ("Products_ID", "Categorys_ID")
+    form_columns = ["Products_ID", "Categorys_ID", ]
 
     def is_accessible(self):
         try:
@@ -122,7 +121,7 @@ class Product(db.Model):
 
 class ProductView(ModelView):
     form_excluded_columns = ("Rating",)
-    form_columns = ["ProductName", "ProductPrice","NumberInStock", "Description", "imageName",]
+    form_columns = ["ProductName", "ProductPrice", "NumberInStock", "Description", "imageName", ]
     column_display_pk = True
 
     def is_accessible(self):
@@ -227,4 +226,4 @@ def verify():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(DEBUG=True)

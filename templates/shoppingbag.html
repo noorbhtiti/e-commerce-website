@@ -67,31 +67,6 @@
     <div id = "leftbox">
 
 
-
-        <div id="order-boxes">
-
-           <div id="image-div">
-                <img src="tsh.jpg" width="150px" height="150px">
-           </div>
-           <div id="text-boxes">
-                <h2>Name</h2>
-                <h2>prise</h2>
-                <h3>desc</h3>
-                <div id="d1">
-                    <form action="">
-                        <input type="number" min="0" id="items-number" name="items">
-                    </form>
-                 </div>
-
-                 <div id="d2">
-                    <button id="delete-btn">
-                        <img src="delete.png" width="20px" height="20px">
-                    </button>
-                </div>
-           </div>
-
-        </div>
-
         <div id="order-boxes">
 
             <div id="image-div">
@@ -109,18 +84,12 @@
 
                   <div id="d2">
                      <button id="delete-btn">
-                         <img src="delete.png" width="20px" height="20px">
+                         <img src="{{url_for('static', filename='delete.png')}}" width="20px" height="20px">
                      </button>
                  </div>
             </div>
 
          </div>
-
-
-
-
-
-
     </div>
 
 
