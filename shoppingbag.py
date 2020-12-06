@@ -14,7 +14,16 @@ shoppingbag = Blueprint('shoppingbag', __name__, static_folder='static', templat
 
 @shoppingbag.route('/cart')
 def cart():
-    return render_template('shoppingbag.html')
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
 
+    if logged:
+        return render_template('shoppingbag.html', logged=logged)
 
-
+    else:
+        msg = "Please login to see cart"
+        return render_template('login.html', errormsg=msg)
