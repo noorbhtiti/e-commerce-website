@@ -75,8 +75,10 @@ make cart page -->
             <div class="middle">
                 <p id= desc > {{prod['Description']}} </p>
                 <div id="add-to-cart">
-                    <form method="POST">
-                        <button id="add-to-cart-btn" >ADD TO CART</button>
+                    <form method="POST">  
+                        <a href="/shop.{{prod['ProductID']}}"> 
+                            <div id="add-to-cart-btn" >ADD TO CART</div>
+                        </a>
                     </form>
                 </div>
               </div>

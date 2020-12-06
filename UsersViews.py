@@ -68,5 +68,10 @@ def shop():
 
 # shop block end#
 
+@app.route("/shop.<string:id>", methods=["GET", "POST"])
+def addToCart(id):
+    print(id)
+    return(request.referrer)
+
 
 ###<p>Desc: {{prod['Description']}}</p>##

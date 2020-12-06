@@ -55,6 +55,24 @@ class Categorys(db.Model):
     def __repr__(self):
         return self.CategoryName
 
+class Cart(db.Model):
+    __table__ = db.Model.metadata.tables['db941227.Cart']
+
+    def __repr__(self):
+        return self.UserID
+
+class CartView(ModelView):
+    def is_accessible(self):
+        try:
+            email = uppercase(session['email'])
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE Email = %s', (email,))
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
 
 class CategorysView(ModelView):
     column_display_pk = True
@@ -212,6 +230,7 @@ admin.add_view(AdminUserView(AdminUser, db.session))
 admin.add_view(ProductView(Product, db.session))
 admin.add_view(CategorysView(Categorys, db.session))
 admin.add_view(ProductsCategoryView(ProductsCategory, db.session))
+admin.add_view(CartView(Cart, db.session))
 admin.add_link(MenuLink(name='Profile', category='', url="/profile"))
 admin.add_link(MenuLink(name='Logout', category='', url="/logout"))
 # END ADMIN
@@ -223,6 +242,5 @@ mysql = MySQL(app)
 def verify():
     return render_template("verify.html")
 
-
 if __name__ == '__main__':
-    app.run(DEBUG=True)
+    app.run(debug=True)
