@@ -1,4 +1,5 @@
 from flask import *
+import MySQLdb.cursors
 from flask_mysqldb import MySQL
 
 # DATABASE BLOCK START#
@@ -22,7 +23,22 @@ def cart():
         logged = False
 
     if logged:
-        return render_template('shoppingbag.html', logged=logged)
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
+        getuserid = cursor.fetchone()
+        #################################################################################
+        userid = getuserid['UserID']
+        cursor.execute('SELECT ProductsID FROM Cart WHERE  UserID= %s ', (userid,))
+        getprodids = cursor.fetchall()
+        print(getprodids)
+        #################################################################################
+        lista = []
+        for x in getprodids:
+            cursor.execute('SELECT * FROM Products WHERE ProductID= %s ', (x['ProductsID'],))
+            getprodsviaip = cursor.fetchall()
+            lista.append(getprodsviaip)
+
+        return render_template('shoppingbag.html', lista=lista)
 
     else:
         msg = "Please login to see cart"
