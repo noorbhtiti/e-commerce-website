@@ -34,7 +34,6 @@ def login():
             return redirect(url_for("ProfilePage.profile", user=session['email']))
     return render_template('login.html', errormsg=errormsg)
 
-
 @LoginPage.route('/logout')
 def logout():
     if "email" in session:

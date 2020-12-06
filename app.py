@@ -119,7 +119,6 @@ class Product(db.Model):
     def __repr__(self):
         return self.ProductName
 
-
 class ProductView(ModelView):
     form_excluded_columns = ("Rating",)
     form_columns = ["ProductName", "ProductPrice","NumberInStock", "Description", "imageName",]
