@@ -97,6 +97,13 @@
 <div class="samll-container">
     <h2 class="title"> categories </h2>
     <div class="row">
+        
+            {% for x in category %}
+                <a href="/shop/{{x['CategoryName']}}"> <h2>{{x['CategoryName']}}</h2></a>
+            {% endfor %}
+        
+    </div>
+    <div class="row">
         <div class="col-4">
             <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
             <h4>product name here </h4>

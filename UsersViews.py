@@ -24,7 +24,12 @@ def home():
             logged = True
     except:
         logged = False
-    return render_template('index.html', logged=logged)
+    
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Categorys')
+    category = cursor.fetchall()
+    print(category)
+    return render_template('index.html', logged=logged, category=category)
 
 @UsersViews.route('/shop/<category>')
 def shopCategory(category):
@@ -43,15 +48,19 @@ def shopCategory(category):
         cursor.execute('SELECT ProductID FROM ProductsCategory WHERE CategoryID = %s', (category['CategoryID'],)) #hämtar alla produkter som har med den categorin
         prodscat = cursor.fetchall()
         print("prodscat ", prodscat)
-        prods = []
+        
         if(prodscat):
+            prods = []
             for x in prodscat:
                 print(x['ProductID'])
                 cursor.execute('SELECT * FROM Products WHERE ProductID = %s', (x['ProductID'],))
                 prods.append(cursor.fetchone())
             print(prods)
-        return render_template('Shop.html', logged=logged, prods = prods)
-    return render_template('Shop.html', logged=logged)
+            return render_template('Shop.html', logged=logged, prods = prods)
+        else:
+            return render_template('Shop.html', logged=logged, message = "There are no products in this category! We are sorry :(")
+    return render_template('Shop.html', logged=logged, message = "404 error! Did not find this category!")
+
     
 
 # home block end#
