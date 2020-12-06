@@ -26,6 +26,33 @@ def home():
         logged = False
     return render_template('index.html', logged=logged)
 
+@UsersViews.route('/shop/<category>')
+def shopCategory(category):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT CategoryID FROM Categorys WHERE CategoryName = %s', (category,))
+    category = cursor.fetchone()
+    if(category): #om categorin finns i databasen
+        print(category['CategoryID'])
+        cursor.execute('SELECT ProductID FROM ProductsCategory WHERE CategoryID = %s', (category['CategoryID'],)) #hämtar alla produkter som har med den categorin
+        prodscat = cursor.fetchall()
+        print("prodscat ", prodscat)
+        prods = []
+        if(prodscat):
+            for x in prodscat:
+                print(x['ProductID'])
+                cursor.execute('SELECT * FROM Products WHERE ProductID = %s', (x['ProductID'],))
+                prods.append(cursor.fetchone())
+            print(prods)
+        return render_template('Shop.html', logged=logged, prods = prods)
+    return render_template('Shop.html', logged=logged)
+    
 
 # home block end#
 #
@@ -45,12 +72,8 @@ def shop():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Products')
     prods = cursor.fetchall()
-    print(prods)
 
     #####################################################################
-    for prod in prods:
-        x=prod['ProductID']
-        print(x)
 
     if logged:
         cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
@@ -68,10 +91,11 @@ def shop():
 
 # shop block end#
 
-@app.route("/shop.<string:id>", methods=["GET", "POST"])
+@UsersViews.route("/shop.<string:id>", methods=["GET", "POST"])
 def addToCart(id):
     print(id)
-    return(request.referrer)
+    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    return redirect(request.referrer)
 
 
 ###<p>Desc: {{prod['Description']}}</p>##
