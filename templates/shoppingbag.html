@@ -66,19 +66,21 @@
 
     <div id = "leftbox">
 
+        {% for row in lista%}
+            {% for prods in row %}
 
         <div id="order-boxes">
 
             <div id="image-div">
-                 <img src="tsh.jpg" width="150px" height="150px">
+                 <img src="{{url_for('static', filename=prods['imageName'])}}" width="150px" height="150px">
             </div>
             <div id="text-boxes">
-                 <h2>Name</h2>
-                 <h2>prise</h2>
-                 <h3>desc</h3>
+                <p id= desc > {{prods['ProductName']}} </p>
+                <p id= desc > {{prods['Description']}} </p>
+                <p id= desc > {{prods['ProductPrice']}} </p>
                  <div id="d1">
                      <form action="">
-                         <input type="number" min="0" id="items-number" name="items">
+                         <input type="number" min="0" max="10" id="items-number" name="items">
                      </form>
                   </div>
 
@@ -90,6 +92,8 @@
             </div>
 
          </div>
+        {% endfor %}
+    {% endfor %}
     </div>
 
 

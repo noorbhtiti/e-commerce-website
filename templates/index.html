@@ -67,97 +67,65 @@
 
 <!------- categories -------->
 
-<!--
+
 <div class="categories">
+    <h2 class="title"> categories </h2>
+
 
     <div class="samll-container">
      <div class="row">
 
-        <div class="col-3">
-            <img src="images/tsh.jpg">  //image for catefories here
-        </div>
+                     {% for x in category %}
 
         <div class="col-3">
-            <img src="images/tsh.jpg"> //image for catefories here
+            <a href="/shop/{{x['CategoryName']}}">
+            <img src="{{url_for('static', filename='tsh.jpg')}}">
+             </a>
+        <h2 id="categoires-text">{{x['CategoryName']}}</h2>
         </div>
+                     {% endfor %}
 
-        <div class="col-3">
-            <img src="images/tsh.jpg">  //image for catefories here
-
-        </div>
     </div>
 </div>
 
 </div>
 
--->
+
 
 <!------- categories -------->
-
+<!--
 <div class="samll-container">
     <h2 class="title"> categories </h2>
     <div class="row">
         
-            {% for x in category %}
-                <a href="/shop/{{x['CategoryName']}}"> <h2>{{x['CategoryName']}}</h2></a>
-            {% endfor %}
-        
-    </div>
+
+
     <div class="row">
         <div class="col-4">
-            <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
+            <img src="">
             <h4>product name here </h4>
-            <div class="rating">
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p class="prise"> 40.00$ </p>
         </div>
 
           <div class="col-4">
-            <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
+            <img src="">  //image for Products here
             <h4>product name here </h4>
-            <div class="rating">
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p class="prise"> 40.00$ </p>
         </div>
 
           <div class="col-4">
-            <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
+            <img src="">  // image for Products here
             <h4>product name here </h4>
-            <div class="rating">
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p class="prise"> 40.00$ </p>
         </div>
 
           <div class="col-4">
-            <img src="{{url_for('static', filename='tsh.jpg')}}">  <!-- image for Products here -->
+            <img src="">  // image for Products here
             <h4>product name here </h4>
-            <div class="rating">
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star" ></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p class="prise"> 40.00$ </p>
         </div>
-
     </div>
+    </div>
+-->
+
 </div>
+
 
 </body>
 </html>

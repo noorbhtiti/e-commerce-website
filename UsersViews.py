@@ -24,7 +24,7 @@ def home():
             logged = True
     except:
         logged = False
-    
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Categorys')
     category = cursor.fetchall()
@@ -50,20 +50,20 @@ def shopCategory(category):
                        (category['CategoryID'],))  # hämtar alla produkter som har med den categorin
         prodscat = cursor.fetchall()
         print("prodscat ", prodscat)
-        
-        if(prodscat):
+
+        if (prodscat):
             prods = []
             for x in prodscat:
                 print(x['ProductID'])
                 cursor.execute('SELECT * FROM Products WHERE ProductID = %s', (x['ProductID'],))
                 prods.append(cursor.fetchone())
             print(prods)
-            return render_template('Shop.html', logged=logged, prods = prods)
+            return render_template('Shop.html', logged=logged, prods=prods)
         else:
-            return render_template('Shop.html', logged=logged, message = "There are no products in this category! We are sorry :(")
-    return render_template('Shop.html', logged=logged, message = "404 error! Did not find this category!")
+            return render_template('Shop.html', logged=logged,
+                                   message="There are no products in this category! We are sorry :(")
+    return render_template('Shop.html', logged=logged, message="404 error! Did not find this category!")
 
-    
 
 # home block end#
 #
@@ -77,24 +77,20 @@ def addToCart(pro_id):
     try:
         if session['email']:
             logged = True
-            print("loggad true")
     except:
         logged = False
-        print("false")
 
     if logged:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
         account = cursor.fetchone()
         userid = account['UserID']
-        print(userid)
-        print("POST")
         cursor.execute('INSERT INTO Cart (UserID,ProductsID ,Amount) VALUES (%s ,%s ,%s)', (userid, pro_id, 1,))
         mysql.connection.commit()
 
-
     else:
-        print("fel")
+        msg = "Please login to add items"
+        return render_template('login.html', errormsg=msg)
     return redirect(request.referrer)
 
 
@@ -119,7 +115,7 @@ def shop():
 
     #####################################################################
 
-    #if logged:
+    # if logged:
     #    cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
     #    account = cursor.fetchone()
     #    userid = account['UserID']
@@ -127,7 +123,7 @@ def shop():
     #        cursor.execute('INSERT INTO Cart (UserID,ProductsID ,Amount) VALUES (%s ,%s ,%s)', (userid, x, 1,))
     #        mysql.connection.commit()
 
-    #else:
+    # else:
     #    print("fel")
     #
     ##############################################################################
