@@ -44,7 +44,7 @@ make cart page -->
         </nav>
             {% endif %}
 
-           <a href=""> <!-- link to cart-->
+           <a href="/cart"> <!-- link to cart-->
                <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
            </a>
 
@@ -74,8 +74,10 @@ make cart page -->
             <!-- image for Products here -->
             <div class="middle">
                 <p id= desc > {{prod['Description']}} </p>
-                <div class="text">
-                    <a id="shop-now-btn-shop" href=" ">ADD TO CART</a>
+                <div id="add-to-cart">
+                    <form method="POST">
+                        <button id="add-to-cart-btn" >ADD TO CART</button>
+                    </form>
                 </div>
               </div>
             <h4 id="name-of-product-shopping">{{prod['ProductName']}} </h4>

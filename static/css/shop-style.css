@@ -130,15 +130,6 @@ nav ul li{
     opacity: 1;
   }
 
-  .text {
-    background-color: #ff523b;
-    color: white;
-    font-size: 16px;
-    padding: 8px 30px;
-    border-radius: 30px;
-    transition: background 0.5s;
-
-  }
 
   #desc{
       color: white;
@@ -154,5 +145,26 @@ nav ul li{
    #shop-now-btn-shop{
     text-decoration: none;
     color: inherit;
+    background: none;
 
   }
+
+     #add-to-cart-btn{
+    background: #ff523b;
+    border-radius: 30px;
+    color: white;
+    margin: 5px;
+    padding: 5px;
+    border: none;
+    width: 100%;
+    font-size: 15px;
+    transition: background 0.5s;
+    cursor:pointer;
+
+
+}
+
+
+#add-to-cart-btn:hover{
+    background: #563434;
+}

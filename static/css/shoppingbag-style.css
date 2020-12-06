@@ -1,0 +1,182 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+body{
+    font-family: 'Anton', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.btn1{
+    margin: 10px;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+nav{
+    flex: 1;
+    text-align: right;
+}
+
+nav ul{
+    display: inline-block;
+    list-style-type: none;
+}
+
+nav ul li{
+    display: inline-block;
+    margin-right: 20px;
+}
+
+
+#Awhite{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+.header-container{
+    max-width: 1300px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+
+
+.header{
+    background: radial-gradient(#0b0b0b,#222222);
+}
+
+.header .row{
+    margin-top: 70px;
+}
+
+
+#main-box{
+    background-color: #F3F3F3;
+    overflow: hidden;
+    width:auto;
+    height:100%;
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding:20px
+
+}
+
+#main-box #leftbox {
+    position: relative;
+    border: solid rgb(255, 255, 255);
+    float:left;
+    background:rgb(255, 255, 255);
+    width:69%;
+    height:100%;
+}
+
+#main-box #rightbox{
+    position: relative;
+    float:right;
+    background:rgb(255, 255, 255);
+    border: solid rgb(255, 255, 255);
+    width:30%;
+    height:100%;
+
+
+}
+h1{
+    color:rgb(0, 0, 0);
+}
+
+#total-amount{
+    padding: 15px;
+}
+
+#deltotal-box{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+
+}
+
+#Deltotal{
+    display: inline;
+    padding: 10px;
+    float: left;
+}
+
+#Deltotal-right{
+    display: inline;
+    float: right;
+    padding: 10px;
+}
+
+
+
+#btn-box{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 75%;
+
+}
+
+#checkout-btn{
+    background: #ff523b;
+    border-radius: 30px;
+    color: white;
+    padding: 5px;
+    border: none;
+    width: 100%;
+    font-size: 20px;
+    transition: background 0.5s;
+    cursor:pointer;
+
+
+}
+
+
+#checkout-btn:hover{
+    background: #563434;
+}
+
+#order-boxes{
+    display: flex;
+    border: solid 1px #F3F3F3;
+}
+
+#image-div{
+    border: solid rgb(255, 255, 255);
+    float: left;
+}
+
+#text-boxes{
+    margin: 25px;
+    display: inline;
+    width: 100%;
+}
+
+#right-box-del-edit{
+    float: left;
+}
+
+
+
+
+#d2{
+    margin-right: 50px;
+    float: right;
+}
+
+#delete-btn{
+    border: none;
+    background-color: Transparent;
+    cursor:pointer;
+}

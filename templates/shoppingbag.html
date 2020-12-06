@@ -1,10 +1,12 @@
+<!--https://www.geeksforgeeks.org/how-to-float-three-div-side-by-side-using-css/-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOUELI | D0018E </title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shoppingbag-style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -52,15 +54,77 @@
                 <img class="btn1"  src="{{url_for('static', filename='user.png')}}" width="30px" height="30px">
                 </a>
            {% endif %}
-
-
-
+       </div>
     </div>
-    </div>
-    </div>
-
 </div>
-</div>
+
+<!-- ---------------------------changes starts here---------------------->
+
+
+<div id="main-box">
+
+
+    <div id = "leftbox">
+
+
+        <div id="order-boxes">
+
+            <div id="image-div">
+                 <img src="tsh.jpg" width="150px" height="150px">
+            </div>
+            <div id="text-boxes">
+                 <h2>Name</h2>
+                 <h2>prise</h2>
+                 <h3>desc</h3>
+                 <div id="d1">
+                     <form action="">
+                         <input type="number" min="0" id="items-number" name="items">
+                     </form>
+                  </div>
+
+                  <div id="d2">
+                     <button id="delete-btn">
+                         <img src="{{url_for('static', filename='delete.png')}}" width="20px" height="20px">
+                     </button>
+                 </div>
+            </div>
+
+         </div>
+    </div>
+
+
+
+    <div id = "rightbox">
+        <h1 id="total-amount"> Total amount:</h1>
+        <hr>
+        <div id="deltotal-box">
+            <h2 id="Deltotal">Deltotal: </h2>
+            <h2 id="Deltotal-right">25$</h2>
+        </div>
+        <div id="deltotal-box">
+            <h2 id="Deltotal">Shipping: </h2>
+            <h2 id="Deltotal-right">25$</h2>
+        </div>
+        <hr>
+        <div id="deltotal-box">
+            <h2 id="Deltotal">Total: </h2>
+            <h2 id="Deltotal-right">50$</h2>
+        </div>
+
+        <div id="btn-box">
+            <button id="checkout-btn" >Checkout</button>
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+<!----------------------------------------------------------------------->
 
 </body>
 </html>

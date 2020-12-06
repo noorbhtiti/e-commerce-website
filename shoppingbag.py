@@ -13,5 +13,8 @@ shoppingbag = Blueprint('shoppingbag', __name__, static_folder='static', templat
 
 
 @shoppingbag.route('/cart')
-def CartPage():
+def cart():
     return render_template('shoppingbag.html')
+
+
+
