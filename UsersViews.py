@@ -26,6 +26,7 @@ def home():
         logged = False
     return render_template('index.html', logged=logged)
 
+
 @UsersViews.route('/shop/<category>')
 def shopCategory(category):
     logged = False
@@ -38,23 +39,57 @@ def shopCategory(category):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT CategoryID FROM Categorys WHERE CategoryName = %s', (category,))
     category = cursor.fetchone()
-    if(category): #om categorin finns i databasen
+    if (category):  # om categorin finns i databasen
         print(category['CategoryID'])
-        cursor.execute('SELECT ProductID FROM ProductsCategory WHERE CategoryID = %s', (category['CategoryID'],)) #hämtar alla produkter som har med den categorin
+        cursor.execute('SELECT ProductID FROM ProductsCategory WHERE CategoryID = %s',
+                       (category['CategoryID'],))  # hämtar alla produkter som har med den categorin
         prodscat = cursor.fetchall()
         print("prodscat ", prodscat)
         prods = []
-        if(prodscat):
+        if (prodscat):
             for x in prodscat:
                 print(x['ProductID'])
                 cursor.execute('SELECT * FROM Products WHERE ProductID = %s', (x['ProductID'],))
                 prods.append(cursor.fetchone())
             print(prods)
-        return render_template('Shop.html', logged=logged, prods = prods)
+        return render_template('Shop.html', logged=logged, prods=prods)
     return render_template('Shop.html', logged=logged)
-    
+
 
 # home block end#
+#
+#
+#
+#
+# Add To Cart start"
+@UsersViews.route("/shop.<int:pro_id>", methods=["GET", "POST"])
+def addToCart(pro_id):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+            print("loggad true")
+    except:
+        logged = False
+        print("false")
+
+    if logged:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
+        account = cursor.fetchone()
+        userid = account['UserID']
+        print(userid)
+        print("POST")
+        cursor.execute('INSERT INTO Cart (UserID,ProductsID ,Amount) VALUES (%s ,%s ,%s)', (userid, pro_id, 1,))
+        mysql.connection.commit()
+
+
+    else:
+        print("fel")
+    return redirect(request.referrer)
+
+
+# Add to Cart end#
 #
 #
 #
@@ -75,27 +110,21 @@ def shop():
 
     #####################################################################
 
-    if logged:
-        cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
-        account = cursor.fetchone()
-        userid = account['UserID']
-        if request.method == 'POST':
-            cursor.execute('INSERT INTO Cart (UserID,ProductsID ,Amount) VALUES (%s ,%s ,%s)', (userid, x, 1,))
-            mysql.connection.commit()
+    #if logged:
+    #    cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
+    #    account = cursor.fetchone()
+    #    userid = account['UserID']
+    #    if request.method == 'POST':
+    #        cursor.execute('INSERT INTO Cart (UserID,ProductsID ,Amount) VALUES (%s ,%s ,%s)', (userid, x, 1,))
+    #        mysql.connection.commit()
 
-    else:
-        print("fel")
-
+    #else:
+    #    print("fel")
+    #
     ##############################################################################
     return render_template('Shop.html', logged=logged, prods=prods)
 
 # shop block end#
-
-@UsersViews.route("/shop.<string:id>", methods=["GET", "POST"])
-def addToCart(id):
-    print(id)
-    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-    return redirect(request.referrer)
 
 
 ###<p>Desc: {{prod['Description']}}</p>##
