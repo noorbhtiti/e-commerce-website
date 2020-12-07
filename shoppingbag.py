@@ -25,24 +25,32 @@ def cart():
     if logged:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         userid = getUserid(session['email'])
-        cursor.execute('SELECT ProductsID FROM Cart WHERE  UserID= %s ', (userid,))
+        cursor.execute('SELECT ProductsID FROM Cart WHERE UserID= %s ', (userid,))
         getprodids = cursor.fetchall()
         # print(getprodids)
         #################################################################################
         cartDict = {}
         lista = []
+        counter = 0
+        price = 0
+        shippingCost = 0
+        print(getprodids)
         for x in getprodids:
             cursor.execute('SELECT * FROM Products WHERE ProductID= %s ', (x['ProductsID'],))
             getprodsviaip = cursor.fetchall()
+            price += getprodsviaip[0]['ProductPrice']
             if x['ProductsID'] in cartDict:
                 cartDict[x['ProductsID']] += 1
             else:
                 cartDict[x['ProductsID']] = 1
                 lista.append(getprodsviaip)
-############################### får fel här ####################################
-            #counter = count(getUserid(session['email']))
-################################################################################
-        return render_template('shoppingbag.html', lista=lista, cartDict=cartDict, logged=logged, counter=1)
+            counter = count(getUserid(session['email']))
+            session['counter'] = counter
+        if(price>0):
+            shippingCost = 25
+        else:
+            shippingCost = 0
+        return render_template('shoppingbag.html', lista=lista, cartDict=cartDict, logged=logged, counter=counter, price=price, shippingCost=shippingCost)
 
     else:
         msg = "Please login to see cart"

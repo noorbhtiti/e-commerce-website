@@ -113,7 +113,8 @@ def shop():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Products')
     prods = cursor.fetchall()
-
-    return render_template('Shop.html', logged=logged, prods=prods)
-
+    counter = 0
+    if(logged):
+        counter = count(getUserid(session['email']))
+    return render_template('Shop.html', logged=logged, prods=prods, counter = counter)
 # shop block end#
