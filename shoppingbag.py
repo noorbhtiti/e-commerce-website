@@ -32,13 +32,20 @@ def cart():
         getprodids = cursor.fetchall()
         print(getprodids)
         #################################################################################
+        cartDict = {}
         lista = []
         for x in getprodids:
             cursor.execute('SELECT * FROM Products WHERE ProductID= %s ', (x['ProductsID'],))
             getprodsviaip = cursor.fetchall()
-            lista.append(getprodsviaip)
-
-        return render_template('shoppingbag.html', lista=lista)
+            if(x['ProductsID'] in cartDict):
+                print("IF SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATS")
+                cartDict[x['ProductsID']] +=1
+            else:
+                cartDict[x['ProductsID']] = 1
+                lista.append(getprodsviaip)
+        print(cartDict)
+        print(lista)
+        return render_template('shoppingbag.html', lista=lista, cartDict=cartDict)
 
     else:
         msg = "Please login to see cart"

@@ -90,6 +90,7 @@ def addToCart(pro_id):
 
     else:
         msg = "Please login to add items"
+        returnToShop = True
         return render_template('login.html', errormsg=msg)
     return redirect(request.referrer)
 
