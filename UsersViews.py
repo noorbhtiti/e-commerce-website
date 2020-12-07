@@ -114,23 +114,6 @@ def shop():
     cursor.execute('SELECT * FROM Products')
     prods = cursor.fetchall()
 
-    #####################################################################
-
-    # if logged:
-    #    cursor.execute('SELECT UserID FROM Users WHERE Email = %s ', (session['email'],))
-    #    account = cursor.fetchone()
-    #    userid = account['UserID']
-    #    if request.method == 'POST':
-    #        cursor.execute('INSERT INTO Cart (UserID,ProductsID ,Amount) VALUES (%s ,%s ,%s)', (userid, x, 1,))
-    #        mysql.connection.commit()
-
-    # else:
-    #    print("fel")
-    #
-    ##############################################################################
     return render_template('Shop.html', logged=logged, prods=prods)
 
 # shop block end#
-
-
-###<p>Desc: {{prod['Description']}}</p>##

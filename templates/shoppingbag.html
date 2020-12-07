@@ -39,9 +39,14 @@
         </nav>
             {% endif %}
 
+
+
            <a href="/cart"> <!-- link to cart-->
                <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
            </a>
+             {% if logged and counter>0 %}
+                <span class="step">{{ counter }}</span>
+             {% endif %}
 
                   {% if logged %}
                <a href="/logout"> <!-- link to login page-->
@@ -79,15 +84,17 @@
                 <p id= desc > {{prods['Description']}} </p>
                 <p id= desc > {{prods['ProductPrice']}} </p>
                  <div id="d1">
-                     <form action="">
-                         <input value={{cartDict[prods['ProductID']]}} type="number" min="0" max="10" id="items-number" name="items">
+                     <form method="">
+                             <input value={{cartDict[prods['ProductID']]}}  type="number" min="0" max="10" id="items-number" name="itemstest">
                      </form>
                   </div>
 
                   <div id="d2">
+                      <a id="add-to-cart-link" href="/cart.{{prods['ProductID']}}">
                      <button id="delete-btn">
                          <img src="{{url_for('static', filename='delete.png')}}" width="20px" height="20px">
                      </button>
+                      </a>
                  </div>
             </div>
 
@@ -116,8 +123,9 @@
         </div>
 
         <div id="btn-box">
-            <button id="checkout-btn" >Checkout</button>
-
+            <a href="/">
+            <button id="checkout-btn" >Place order</button>
+            </a>
         </div>
 
 
