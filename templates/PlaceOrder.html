@@ -1,0 +1,142 @@
+<!--https://www.geeksforgeeks.org/how-to-float-three-div-side-by-side-using-css/-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOUELI | D0018E </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/PlaceOrder.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="header">
+    <div class="header-container">
+       <div class="navbar">
+        <div class="logo">
+              <a id="Awhite" href="/">
+                <img src="{{url_for('static', filename='logo3.png')}}" width="250ox"  />
+            </a>
+        </div>
+
+           {%  if logged %}
+        <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+                <li> <a id="Awhite" href="/profile"> Profile </a> </li>
+            </ul>
+        </nav>
+            {% else %}
+              <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+            </ul>
+        </nav>
+            {% endif %}
+
+
+
+           <a href="/cart"> <!-- link to cart-->
+               <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
+           </a>
+             {% if logged and counter>0 %}
+                <span class="step">{{ counter }}</span>
+             {% endif %}
+
+                  {% if logged %}
+               <a href="/logout"> <!-- link to login page-->
+                <img class="btn1"  src="{{url_for('static', filename='logout.png')}}" width="30px" height="30px">
+                </a>
+
+           {% else %}
+
+                <a href="/login"> <!-- link to logout page-->
+                <img class="btn1"  src="{{url_for('static', filename='user.png')}}" width="30px" height="30px">
+                </a>
+           {% endif %}
+       </div>
+    </div>
+</div>
+
+<!-- ---------------------------changes starts here---------------------->
+
+
+<div id="main-box">
+
+
+    <div id = "leftbox">
+
+        {% for row in lista%}
+            {% for prods in row %}
+
+        <div id="order-boxes">
+
+            <div id="image-div">
+                 <img src="{{url_for('static', filename=prods['imageName'])}}" width="150px" height="150px">
+            </div>
+            <div id="text-boxes">
+                <p id= desc > {{prods['ProductName']}} </p>
+                <p id= desc > {{prods['Description']}} </p>
+                <p id= desc > {{prods['ProductPrice']}} </p>
+                 <div id="d1">
+                     <form method="">
+                             <input value={{cartDict[prods['ProductID']]}}  type="number" min="0" max="10" id="items-number" name="itemstest">
+                     </form>
+                  </div>
+
+                  <div id="d2">
+                      <a id="add-to-cart-link" href="/cart.{{prods['ProductID']}}">
+                     <button id="delete-btn">
+                         <img src="{{url_for('static', filename='delete.png')}}" width="20px" height="20px">
+                     </button>
+                      </a>
+                 </div>
+            </div>
+
+         </div>
+        {% endfor %}
+    {% endfor %}
+    </div>
+
+
+
+    <div id = "rightbox">
+        <h1 id="total-amount"> Total amount:</h1>
+        <hr>
+        <div id="deltotal-box">
+            <h2 id="Deltotal">Deltotal: </h2>
+            <h2 id="Deltotal-right">{{price}}$</h2>
+        </div>
+        <div id="deltotal-box">
+            <h2 id="Deltotal">Shipping: </h2>
+            <h2 id="Deltotal-right">{{shippingCost}}$</h2>
+        </div>
+        <hr>
+        <div id="deltotal-box">
+            <h2 id="Deltotal">Total: </h2>
+            <h2 id="Deltotal-right">{{price + shippingCost}}$</h2>
+        </div>
+
+        <div id="btn-box">
+            <a href="/">
+            <button id="checkout-btn" >Place order</button>
+            </a>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+<!----------------------------------------------------------------------->
+
+</body>
+</html>
