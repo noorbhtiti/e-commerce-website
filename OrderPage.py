@@ -15,4 +15,4 @@ OrderPage = Blueprint('OrderPage', __name__, static_folder='static', template_fo
 
 @OrderPage.route("/order")
 def order():
-    return "<h1>test</h1>"
+    return "<h1>Order</h1>"
