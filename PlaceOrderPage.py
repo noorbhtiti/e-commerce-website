@@ -48,13 +48,15 @@ def order():
             mysql.connection.commit()
             print(nextID)
             for x in prods: #kopiera över allt från cart till orderdetails
-                cursor.execute('INSERT INTO `OrderDetails`( `OrderID`, `ProductID`, `Amount`) VALUES (%s,%s,%s)',(nextID['AUTO_INCREMENT'],x['ProductsID'],1,))
+                cursor.execute('SELECT * FROM Products WHERE ProductID= %s ', (x['ProductsID'],))
+                a = cursor.fetchone()
+                print(a)
+                cursor.execute('INSERT INTO `OrderDetails`( `OrderID`, `ProductID`,`BuyingPrice` ,`Amount`) VALUES (%s,%s,%s,%s)',(nextID['AUTO_INCREMENT'],x['ProductsID'],a['ProductPrice'],1,))
                 cursor.execute('DELETE FROM Cart WHERE UserID =%s and ProductsID = %s', (userid, x['ProductsID'],))
                 mysql.connection.commit()
             return "<h1>Din order har placerats!</h1>"
         else:
-            return "<h1>din cart är tom</h1>"
-
+            return "<h1>Din cart är tom</h1>"
         
     return "<h1>Du är inte inloggad!</h1>"
 

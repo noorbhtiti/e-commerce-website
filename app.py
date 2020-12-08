@@ -50,22 +50,26 @@ class User(db.Model):
     __table__ = db.Model.metadata.tables['db941227.Users']
 
     def __repr__(self):
-        return '<User %r>' % self.Username
+        return "%s, %s"%(self.FirstName, self.UserID)
 
 
 class Categorys(db.Model):
     __table__ = db.Model.metadata.tables['db941227.Categorys']
 
     def __repr__(self):
-        return self.CategoryName
+        return "%s, %s"%(self.CategoryName, self.CategoryID)
 
 class Cart(db.Model):
+    Products_ID = db.relationship("Product", backref="Cart")
+    User_ID = db.relationship("User", backref="Cart")
     __table__ = db.Model.metadata.tables['db941227.Cart']
 
     def __repr__(self):
         return self.UserID
 
 class CartView(ModelView):
+    column_list = ("User_ID", "Products_ID","Amount")
+    form_columns = ["User_ID", "Products_ID", "Amount",]
     def is_accessible(self):
         try:
             email = uppercase(session['email'])
@@ -77,6 +81,30 @@ class CartView(ModelView):
         except:  # Gets in except if email is not in session, meaning that the user is not logged in
             return False
         return False  # This returns false only if a user is logged in, but not admin
+
+class Orders(db.Model):
+    User_ID = db.relationship("User", backref="Orders")
+    __table__ = db.Model.metadata.tables['db941227.Orders']
+
+    def __repr__(self):
+        return self.UserID
+
+class OrdersView(ModelView):
+    column_list = ("User_ID", "OrderID", "Amount", "OrderStatus", "ShippingAdress", "OrderPhoneNumber", "OrderEmail", "DataOfOrder")
+    #form_columns = ["User_ID", "Amount", "OrderStatus", "ShippingAdress", "OrderPhoneNumber", "OrderEmail", "DataOfOrder",]
+    can_create = False
+    def is_accessible(self):
+        try:
+            email = uppercase(session['email'])
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE Email = %s', (email,))
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
 
 class CategorysView(ModelView):
     column_display_pk = True
@@ -138,7 +166,7 @@ class Product(db.Model):
         return self.ProductName
 
     def __repr__(self):
-        return self.ProductName
+        return "%s, %s"%(self.ProductName, self.ProductID)
 
 class ProductView(ModelView):
     form_excluded_columns = ("Rating",)
@@ -235,6 +263,7 @@ admin.add_view(ProductView(Product, db.session))
 admin.add_view(CategorysView(Categorys, db.session))
 admin.add_view(ProductsCategoryView(ProductsCategory, db.session))
 admin.add_view(CartView(Cart, db.session))
+admin.add_view(OrdersView(Orders, db.session))
 admin.add_link(MenuLink(name='Profile', category='', url="/profile"))
 admin.add_link(MenuLink(name='Logout', category='', url="/logout"))
 # END ADMIN

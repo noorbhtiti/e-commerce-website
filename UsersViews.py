@@ -41,6 +41,10 @@ def shopCategory(category):
     except:
         logged = False
 
+    counter = 0
+    if(logged):
+        counter = count(getUserid(session['email']))
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT CategoryID FROM Categorys WHERE CategoryName = %s', (category,))
     category = cursor.fetchone()
@@ -58,11 +62,11 @@ def shopCategory(category):
                 cursor.execute('SELECT * FROM Products WHERE ProductID = %s', (x['ProductID'],))
                 prods.append(cursor.fetchone())
             print(prods)
-            return render_template('Shop.html', logged=logged, prods=prods)
+            return render_template('Shop.html', logged=logged, prods=prods, counter=counter)
         else:
             return render_template('Shop.html', logged=logged,
-                                   message="There are no products in this category! We are sorry :(")
-    return render_template('Shop.html', logged=logged, message="404 error! Did not find this category!")
+                                   message="There are no products in this category! We are sorry :(", counter=counter)
+    return render_template('Shop.html', logged=logged, message="404 error! Did not find this category!", counter=counter)
 
 
 # home block end#
