@@ -147,10 +147,7 @@ h1{
     background: #563434;
 }
 
-#order-boxes{
-    display: flex;
-    border: solid 1px #F3F3F3;
-}
+
 
 #image-div{
     border: solid rgb(255, 255, 255);
@@ -195,3 +192,52 @@ span.step {
     width: 1.6em;
   }
 
+.input-filed{
+    display: block;
+    width: 100%;
+}
+
+#text-box1 {
+    margin: auto;
+    margin-bottom: 10px;
+    width: 50%;
+    border: 1px solid #a8a7a7;
+    padding: 10px;
+    float: left;
+    height: auto;
+    display: -webkit-inline-box;
+  }
+
+  #text-box2 {
+    margin: auto;
+    margin-bottom: 10px;
+    width: 50%;
+    border: 1px solid #a8a7a7;
+    padding: 10px;
+    float: right;
+    height: auto;
+    display: -webkit-inline-box;
+  }
+
+  #text-box3 {
+    margin: auto;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #a8a7a7;
+    padding: 10px;
+    float: right;
+    height: auto;
+    display: -webkit-inline-box;
+  }
+
+  .input-field{
+    background: none;
+    border: none;
+    margin-left: 25px;
+    width: 400px;
+  }
+
+    #enter-info-text{
+      text-align: center;
+      margin: 20px;
+  }

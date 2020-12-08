@@ -67,40 +67,49 @@
 
 
 <div id="main-box">
-
-
     <div id = "leftbox">
 
-        {% for row in lista%}
-            {% for prods in row %}
+         <h1 id="enter-info-text">Enter your information</h1>
 
         <div id="order-boxes">
 
-            <div id="image-div">
-                 <img src="{{url_for('static', filename=prods['imageName'])}}" width="150px" height="150px">
-            </div>
-            <div id="text-boxes">
-                <p id= desc > {{prods['ProductName']}} </p>
-                <p id= desc > {{prods['Description']}} </p>
-                <p id= desc > {{prods['ProductPrice']}} </p>
-                 <div id="d1">
-                     <form method="">
-                             <input value={{cartDict[prods['ProductID']]}}  type="number" min="0" max="10" id="items-number" name="itemstest">
-                     </form>
-                  </div>
+           <form action="" method="POST">
 
-                  <div id="d2">
-                      <a id="add-to-cart-link" href="/cart.{{prods['ProductID']}}">
-                     <button id="delete-btn">
-                         <img src="{{url_for('static', filename='delete.png')}}" width="20px" height="20px">
-                     </button>
-                      </a>
-                 </div>
+            <div id="text-box1">
+                <h3 id="firstname" >First Name:</h3>
+                <h3 id="firstname" > {{ firstname }}</h3>
             </div>
 
+            <div id="text-box2">
+                <h3 id="lastname" >Last Name:</h3>
+                <h3 id="lastname" > {{ lastname }} </h3>
+            </div>
+
+            <br>
+
+
+            <div id="text-box3">
+                <h3 id="firstname" >Email:</h3>
+            </div>
+
+            <br>
+
+            <div id="text-box3">
+                <h3 id="lastname" >Phone Number: </h3>
+                <input name="edit-email" type="email" class="input-field" placeholder="Email: {{email}}" >
+            </div>
+
+            <br>
+
+            <div id="text-box3">
+                <h3 id="firstname" >Adress: </h3>
+                <input name="edit-email" type="email" class="input-field" placeholder="Email: {{email}}" >
+            </div>
+
+
+            <br>
+           </form>
          </div>
-        {% endfor %}
-    {% endfor %}
     </div>
 
 
@@ -110,16 +119,16 @@
         <hr>
         <div id="deltotal-box">
             <h2 id="Deltotal">Deltotal: </h2>
-            <h2 id="Deltotal-right">{{price}}$</h2>
+            <h2 id="Deltotal-right">25$</h2>
         </div>
         <div id="deltotal-box">
             <h2 id="Deltotal">Shipping: </h2>
-            <h2 id="Deltotal-right">{{shippingCost}}$</h2>
+            <h2 id="Deltotal-right">25$</h2>
         </div>
         <hr>
         <div id="deltotal-box">
             <h2 id="Deltotal">Total: </h2>
-            <h2 id="Deltotal-right">{{price + shippingCost}}$</h2>
+            <h2 id="Deltotal-right">50$</h2>
         </div>
 
         <div id="btn-box">
@@ -137,6 +146,7 @@
 
 
 <!----------------------------------------------------------------------->
+
 
 </body>
 </html>
