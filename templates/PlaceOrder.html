@@ -39,14 +39,9 @@
         </nav>
             {% endif %}
 
-
-
            <a href="/cart"> <!-- link to cart-->
                <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
            </a>
-             {% if logged and counter>0 %}
-                <span class="step">{{ counter }}</span>
-             {% endif %}
 
                   {% if logged %}
                <a href="/logout"> <!-- link to login page-->
@@ -68,21 +63,21 @@
 
 <div id="main-box">
     <div id = "leftbox">
-
          <h1 id="enter-info-text">Enter your information</h1>
 
         <div id="order-boxes">
+
 
            <form action="" method="POST">
 
             <div id="text-box1">
                 <h3 id="firstname" >First Name:</h3>
-                <h3 id="firstname" > {{ firstname }}</h3>
+                <h3 id="firstname" > {{ lista[0] }}</h3>
             </div>
 
             <div id="text-box2">
                 <h3 id="lastname" >Last Name:</h3>
-                <h3 id="lastname" > {{ lastname }} </h3>
+                <h3 id="lastname" > {{ lista[1] }} </h3>
             </div>
 
             <br>
@@ -90,25 +85,27 @@
 
             <div id="text-box3">
                 <h3 id="firstname" >Email:</h3>
+                <input name="edit-email" type="email" class="input-field" placeholder="{{lista[2]}}" >
             </div>
 
             <br>
 
             <div id="text-box3">
                 <h3 id="lastname" >Phone Number: </h3>
-                <input name="edit-email" type="email" class="input-field" placeholder="Email: {{email}}" >
+                <input name="edit-phone" type="text" class="input-field" placeholder="{{lista[3]}}" >
             </div>
 
             <br>
 
             <div id="text-box3">
                 <h3 id="firstname" >Adress: </h3>
-                <input name="edit-email" type="email" class="input-field" placeholder="Email: {{email}}" >
+                <input name="edit-email" type="text" class="input-field" placeholder="{{lista[4]}}" >
             </div>
 
 
             <br>
            </form>
+
          </div>
     </div>
 
@@ -119,31 +116,24 @@
         <hr>
         <div id="deltotal-box">
             <h2 id="Deltotal">Deltotal: </h2>
-            <h2 id="Deltotal-right">25$</h2>
+            <h2 id="Deltotal-right">$</h2>
         </div>
         <div id="deltotal-box">
             <h2 id="Deltotal">Shipping: </h2>
-            <h2 id="Deltotal-right">25$</h2>
+            <h2 id="Deltotal-right">$</h2>
         </div>
         <hr>
         <div id="deltotal-box">
             <h2 id="Deltotal">Total: </h2>
-            <h2 id="Deltotal-right">50$</h2>
+            <h2 id="Deltotal-right">$</h2>
         </div>
 
         <div id="btn-box">
-            <a href="/">
-            <button id="checkout-btn" >Place order</button>
+            <a href="/Check-out">
+            <button id="checkout-btn" >Check-out</button>
             </a>
         </div>
-
-
-
-
-
-
     </div>
-
 
 <!----------------------------------------------------------------------->
 
