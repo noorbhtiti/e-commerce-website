@@ -166,5 +166,4 @@ def productSida(Proid):
             mysql.connection.commit()
             return redirect(request.referrer)
 
-    return render_template("Product-page.html", prods=prods, logged=logged, counter=counter, reviews=reviews,
-                           users=users)
+    return render_template("Product-page.html", prods=prods, logged=logged, counter=counter, reviews=reviews)
