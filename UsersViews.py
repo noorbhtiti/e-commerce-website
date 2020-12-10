@@ -42,7 +42,7 @@ def shopCategory(category):
         logged = False
 
     counter = 0
-    if(logged):
+    if (logged):
         counter = count(getUserid(session['email']))
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -66,7 +66,8 @@ def shopCategory(category):
         else:
             return render_template('Shop.html', logged=logged,
                                    message="There are no products in this category! We are sorry :(", counter=counter)
-    return render_template('Shop.html', logged=logged, message="404 error! Did not find this category!", counter=counter)
+    return render_template('Shop.html', logged=logged, message="404 error! Did not find this category!",
+                           counter=counter)
 
 
 # home block end#
@@ -75,7 +76,8 @@ def shopCategory(category):
 #
 #
 # Add To Cart start"
-@UsersViews.route("/shop.<int:pro_id>", methods=["GET", "POST"])
+# /shop/product.{{prod['ProductID']}}
+@UsersViews.route("/shop/product.<int:pro_id>", methods=["GET", "POST"])
 def addToCart(pro_id):
     logged = False
     try:
@@ -118,7 +120,51 @@ def shop():
     cursor.execute('SELECT * FROM Products')
     prods = cursor.fetchall()
     counter = 0
-    if(logged):
+    if logged:
         counter = count(getUserid(session['email']))
-    return render_template('Shop.html', logged=logged, prods=prods, counter = counter)
+    return render_template('Shop.html', logged=logged, prods=prods, counter=counter)
+
+
 # shop block end#
+
+
+@UsersViews.route("/shop/product-<Proid>", methods=['GET', 'POST'])
+def productSida(Proid):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+
+    counter = 0
+    if logged:
+        counter = count(getUserid(session['email']))
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Products where ProductID = %s', (Proid,))
+    prods = cursor.fetchone()
+    cursor.execute('SELECT * FROM UserReviews where ProductID = %s', (Proid,))
+    reviews = cursor.fetchall()
+    print(reviews)
+    ################################### GET THE NAME ###### FEL #######################################
+    for review in reviews:
+        x = review['UserID']
+        cursor.execute('SELECT FirstName FROM Users where UserID = %s', (x,))
+        users = cursor.fetchall()
+        print(users)
+    ################################### GET THE NAME ########## FEL ###################################
+
+    if logged:
+        userid = getUserid(session['email'])
+        if request.method == "POST":
+            rate = request.form['rate']
+            comments = request.form['comments']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO UserReviews (UserID,ProductID ,Review,Rating) VALUES (%s ,%s ,%s,%s)',
+                           (userid, Proid, comments, rate,))
+            mysql.connection.commit()
+            return redirect(request.referrer)
+
+    return render_template("Product-page.html", prods=prods, logged=logged, counter=counter, reviews=reviews,
+                           users=users)

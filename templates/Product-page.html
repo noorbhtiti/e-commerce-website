@@ -1,0 +1,191 @@
+<!--https://www.geeksforgeeks.org/how-to-float-three-div-side-by-side-using-css/-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOUELI | D0018E </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Product-page.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+</head>
+<body>
+
+<div class="header">
+    <div class="header-container">
+       <div class="navbar">
+        <div class="logo">
+              <a id="Awhite" href="/">
+                <img src="{{url_for('static', filename='logo3.png')}}" width="250ox"  />
+            </a>
+        </div>
+
+           {%  if logged %}
+        <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+                <li> <a id="Awhite" href="/profile"> Profile </a> </li>
+            </ul>
+        </nav>
+            {% else %}
+              <nav>
+            <ul>
+                <li> <a id="Awhite" href="/"> Home </a> </li>
+                <li> <a id="Awhite" href="/shop"> shop </a> </li>
+            </ul>
+        </nav>
+            {% endif %}
+
+
+
+           <a href="/cart"> <!-- link to cart-->
+               <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
+           </a>
+             {% if logged and counter>0 %}
+                <span class="step">{{ counter }}</span>
+             {% endif %}
+
+                  {% if logged %}
+               <a href="/logout"> <!-- link to login page-->
+                <img class="btn1"  src="{{url_for('static', filename='logout.png')}}" width="30px" height="30px">
+                </a>
+
+           {% else %}
+
+                <a href="/login"> <!-- link to logout page-->
+                <img class="btn1"  src="{{url_for('static', filename='user.png')}}" width="30px" height="30px">
+                </a>
+           {% endif %}
+       </div>
+    </div>
+</div>
+
+
+
+<!-- ---------------------------changes starts here---------------------->
+
+
+<div id="main-box">
+
+
+    <div id = "leftbox">
+
+
+
+        <div id="order-boxes">
+
+           <div id="image-div">
+                <img src="{{url_for('static', filename=prods['imageName'])}}" width="350px" height="350px">
+           </div>
+           <div id="text-boxes">
+                <h2>{{ prods['ProductName'] }}</h2>
+                <h3>{{ prods['Description'] }}</h3>
+
+                <form id="test" method="POST">
+                    <div class="star-widget">
+                        <input type="radio" name="rate" id="rate-1" value="5">
+                        <label for="rate-1" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-2" value="4">
+                        <label for="rate-2" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-3" value="3">
+                        <label for="rate-3" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-4" value="2">
+                        <label for="rate-4" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-5" value="1">
+                        <label for="rate-5" class="fas fa-star"></label>
+                    </div>
+
+                    <textarea name="comments" id="review"></textarea>
+
+                    <input id="review-btn" value="Leave review" type="submit" />
+                </form>
+
+           </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div id = "rightbox">
+        <div id="deltotal-box">
+            <h2 id="Deltotal">Price: </h2>
+            <h2 id="Deltotal-right">{{ prods['ProductPrice'] }}$</h2>
+        </div>
+
+
+        <div id="btn-box">
+            <a href="/shop/product.{{prods['ProductID']}}">
+            <button id="checkout-btn" >Add To Cart</button>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div id="review-box">
+
+    {% for review in reviews %}
+
+    <div id="white-review-box">
+
+        {% if review['Rating'] == 0  %}
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+
+        {% elif review['Rating']==1 %}
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+        {% elif review['Rating']==2 %}
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+        {% elif review['Rating']==3 %}
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+        {% elif review['Rating']==4 %}
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" style="color: black" ></i>
+        {% else %}
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+        {% endif %}
+        <p>{{ users['FirstName'] }}</p>
+        <p>{{ review['time'] }}</p>
+        <p>{{ review['Review'] }}</p>
+    </div>
+
+    {% endfor %}
+
+
+</div>
+
+
+<!----------------------------------------------------------------------->
+
+
+</body>
+</html>

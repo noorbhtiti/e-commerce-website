@@ -275,6 +275,7 @@ mysql = MySQL(app)
 def verify():
     return render_template("verify.html")
 
+
 if __name__ == '__main__':
     app.run(debug=True)
 

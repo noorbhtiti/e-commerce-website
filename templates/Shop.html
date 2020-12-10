@@ -71,15 +71,15 @@ make cart page -->
         <div class="row">
             {% for prod in prods%}
         <div class="col-4">
-            <img src="{{url_for('static', filename=prod['imageName'])}}"
-                 class="shop-image">
+            <a href="/shop/product-{{prod['ProductID']}}">
+                <img src="{{url_for('static', filename=prod['imageName'])}}">
+            </a>
             <!-- image for Products here -->
             <div class="middle">
                 <p id= desc > {{prod['Description']}} </p>
                 <div id="add-to-cart">
-                        <a id="add-to-cart-link" href="/shop.{{prod['ProductID']}}">
-                            <div id="add-to-cart-btn" >ADD TO CART</div>
-                        </a>
+
+
                 </div>
               </div>
             <h4 id="name-of-product-shopping">{{prod['ProductName']}} </h4>
@@ -136,9 +136,9 @@ make cart page -->
 </div>
 
     </div>
-    <center>
+    <div style="text-align: center;">
         <h1>{{message}}</h1>
-    </center> 
+    </div>
 </div>
 </div>
 
