@@ -187,7 +187,6 @@ class ProductView(ModelView):
 
 
 class AdminIndexView(AdminIndexView):
-
     def is_accessible(self):
         try:
             email = uppercase(session['email'])
