@@ -25,11 +25,15 @@ def home():
     except:
         logged = False
 
+    counter = 0
+    if (logged):
+        counter = count(getUserid(session['email']))
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Categorys')
     category = cursor.fetchall()
-    print(category)
-    return render_template('index.html', logged=logged, category=category)
+    # print(category)
+    return render_template('index.html', logged=logged, category=category, counter=counter)
 
 
 @UsersViews.route('/shop/<category>')
@@ -49,19 +53,19 @@ def shopCategory(category):
     cursor.execute('SELECT CategoryID FROM Categorys WHERE CategoryName = %s', (category,))
     category = cursor.fetchone()
     if (category):  # om categorin finns i databasen
-        print(category['CategoryID'])
+        # print(category['CategoryID'])
         cursor.execute('SELECT ProductID FROM ProductsCategory WHERE CategoryID = %s',
                        (category['CategoryID'],))  # hämtar alla produkter som har med den categorin
         prodscat = cursor.fetchall()
-        print("prodscat ", prodscat)
+        # print("prodscat ", prodscat)
 
         if (prodscat):
             prods = []
             for x in prodscat:
-                print(x['ProductID'])
+                # print(x['ProductID'])
                 cursor.execute('SELECT * FROM Products WHERE ProductID = %s', (x['ProductID'],))
                 prods.append(cursor.fetchone())
-            print(prods)
+            # print(prods)
             return render_template('Shop.html', logged=logged, prods=prods, counter=counter)
         else:
             return render_template('Shop.html', logged=logged,
@@ -141,19 +145,21 @@ def productSida(Proid):
     if logged:
         counter = count(getUserid(session['email']))
 
+    msg = ""
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Products where ProductID = %s', (Proid,))
     prods = cursor.fetchone()
     cursor.execute('SELECT * FROM UserReviews where ProductID = %s', (Proid,))
     reviews = cursor.fetchall()
-    print(reviews)
-    ################################### GET THE NAME ###### FEL #######################################
+
+    lista = []
     for review in reviews:
-        x = review['UserID']
-        cursor.execute('SELECT FirstName FROM Users where UserID = %s', (x,))
+        user = review['UserID']
+        cursor.execute('SELECT FirstName FROM Users where UserID = %s', (user,))
         users = cursor.fetchall()
-        print(users)
-    ################################### GET THE NAME ########## FEL ###################################
+        for x in users:
+            lista.append(x['FirstName'])
 
     if logged:
         userid = getUserid(session['email'])
@@ -166,4 +172,11 @@ def productSida(Proid):
             mysql.connection.commit()
             return redirect(request.referrer)
 
-    return render_template("Product-page.html", prods=prods, logged=logged, counter=counter, reviews=reviews)
+    if not logged:
+        if request.method == "POST":
+            msg = "Please log in to leave a review"
+            return render_template("Product-page.html", prods=prods, logged=logged, counter=counter, reviews=reviews,
+                                   msg=msg, lista=lista)
+
+    return render_template("Product-page.html", prods=prods, logged=logged, counter=counter, reviews=reviews,
+                           lista=lista)

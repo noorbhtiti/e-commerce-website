@@ -43,6 +43,11 @@
                <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
            </a>
 
+
+            {% if logged and counter>0 %}
+           <span class="step">{{ counter }}</span>
+            {% endif %}
+
                   {% if logged %}
                <a href="/logout"> <!-- link to login page-->
                 <img class="btn1"  src="{{url_for('static', filename='logout.png')}}" width="30px" height="30px">
@@ -129,8 +134,8 @@
         </div>
 
         <div id="btn-box">
-            <a href="/Check-out">
-            <button id="checkout-btn" >Check-out</button>
+            <a href="/place-order">
+            <button id="checkout-btn" >Place Order</button>
             </a>
         </div>
     </div>

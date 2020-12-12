@@ -227,7 +227,7 @@ class AdminUserView(ModelView):
 
     def on_model_change(self, form, model, is_created):
         email = uppercase(str(form.Email.data))
-        print(email)
+        #print(email)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Users WHERE Email = %s', (email,))
         account = cursor.fetchone()

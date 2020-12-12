@@ -24,7 +24,11 @@ def checkOut():
     except:
         logged = False
 
+    counter = 0
     if logged:
+        counter = count(getUserid(session['email']))
+
+    if logged and counter > 0:
         userid = getUserid(session['email'])
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Users WHERE UserID = %s', (userid,))
@@ -36,8 +40,9 @@ def checkOut():
         adress = user['Adress']
         lista = [firstName, lastName, phoneNumber, email, adress]
         price = "25"
-
-    return render_template('PlaceOrder.html', lista=lista)
+        return render_template('Check-out.html', lista=lista, logged=logged, counter=counter)
+    else:
+        return redirect(request.referrer)
 
 
 @PlaceOrderPage.route("/place-order")
@@ -73,11 +78,11 @@ def order():
                 (userid, price, "Processing Order", "Luleå", 112, session['email'],))
             #################################################################################################################
             mysql.connection.commit()
-            print(nextID)
+            # print(nextID)
             for x in prods:  # kopiera över allt från cart till orderdetails
                 cursor.execute('SELECT * FROM Products WHERE ProductID= %s ', (x['ProductsID'],))
                 a = cursor.fetchone()
-                print(a)
+                # print(a)
                 cursor.execute(
                     'INSERT INTO `OrderDetails`( `OrderID`, `ProductID`,`BuyingPrice` ,`Amount`) VALUES (%s,%s,%s,%s)',
                     (nextID['AUTO_INCREMENT'], x['ProductsID'], a['ProductPrice'], 1,))

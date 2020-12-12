@@ -23,6 +23,17 @@ def main_profile():
 
 @ProfilePage.route('/profile/<user>', methods=['GET', 'POST'])
 def profile(user):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+
+    counter = 0
+    if (logged):
+        counter = count(getUserid(session['email']))
+
     try:
         if session['email'] == user and request.method == 'POST' and (
                 'edit-fname' in request.form or 'edit-lname' in request.form or 'edit-phone'
@@ -101,8 +112,66 @@ def profile(user):
                     admin = False
             return render_template('profile.html', firstname=fname, lastname=lname, email=email.lower(),
                                    phonenumber=phonenum,
-                                   password=password, adress=adress,admin=admin)
+                                   password=password, adress=adress, admin=admin, logged=logged, counter=counter)
 
         return "<h1>du är inte inloggad!</h1>"
     except:
+        return "<h1>du är inte inloggad!</h1>"
+
+
+@ProfilePage.route("/Orders")
+def Orders():
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+
+    if logged:
+        counter = count(getUserid(session['email']))
+        userid = getUserid(session['email'])
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Orders WHERE UserID=%s', (userid,))
+        orders = cursor.fetchall()
+
+        return render_template('Orders.html', logged=logged, counter=counter, orders=orders)
+    else:
+        return "<h1>du är inte inloggad!</h1>"
+
+
+@ProfilePage.route("/Orders/<int:OrdID>")
+def OrdersDetails(OrdID):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+
+    if logged:
+        counter = count(getUserid(session['email']))
+        userid = getUserid(session['email'])
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Orders WHERE UserID=%s', (userid,))
+        orders = cursor.fetchall()
+
+    if logged:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM OrderDetails WHERE OrderID=%s', (OrdID,))
+        orderD = cursor.fetchall()
+        # print(orderD)
+        NameLista = []
+        ImgLista = []
+        for temp in orderD:
+            cursor.execute('SELECT * FROM Products WHERE ProductID=%s', (temp['ProductID'],))
+            products = cursor.fetchall()
+            # print(products)
+            for pord in products:
+                NameLista.append(pord['ProductName'])
+                ImgLista.append(pord['imageName'])
+
+        return render_template('Orders.html', logged=logged, counter=counter, orders=orders, orderD=orderD,
+                               NameLista=NameLista, ImgLista=ImgLista)
+    else:
         return "<h1>du är inte inloggad!</h1>"

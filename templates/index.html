@@ -40,6 +40,11 @@
            <a href="/cart"> <!-- link to cart-->
                <img class="btn1" src="{{url_for('static', filename='shopping-bag.png')}}" width="30px" height="30px">
            </a>
+
+            {% if logged and counter>0 %}
+           <span class="step">{{ counter }}</span>
+            {% endif %}
+
            {% if logged %}
                <a href="/logout"> <!-- link to login page-->
                 <img class="btn1"  src="{{url_for('static', filename='logout.png')}}" width="30px" height="30px">

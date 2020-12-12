@@ -76,8 +76,10 @@
     <div id = "leftbox">
 
 
+        <p id="notloggad">{{msg}}</p>
 
         <div id="order-boxes">
+
 
            <div id="image-div">
                 <img src="{{url_for('static', filename=prods['imageName'])}}" width="350px" height="350px">
@@ -108,6 +110,7 @@
            </div>
 
         </div>
+
 
     </div>
 
@@ -173,7 +176,8 @@
             <i class="fa fa-star" ></i>
             <i class="fa fa-star" ></i>
         {% endif %}
-        <p>Name</p>
+
+        <p>{{ lista[loop.index - 1] }}</p>
         <p>{{ review['time'] }}</p>
         <p>{{ review['Review'] }}</p>
     </div>

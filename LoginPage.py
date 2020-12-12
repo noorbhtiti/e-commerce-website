@@ -31,7 +31,7 @@ def login():
             return redirect(url_for('ProfilePage.profile', user=email))
             # return redirect(request.referrer)
         else:
-            errormsg = 'Incorrect Email/Password!'
+            errormsg = 'Incorrect Emapil/Password!'
     else:
         if 'email' in session:
             return redirect(url_for("ProfilePage.profile", user=session['email']))
