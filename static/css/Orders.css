@@ -282,13 +282,13 @@ span.step {
   }
 
   #rightbox #box-1 #box1-leftbox{
-      width: 70%;
+      width: 60%;
       margin: 8px;
   }
 
   #rightbox #box-1 #box1-rightbox{
     border:solid #ff523b 5px;
-    width: 25%;
+    width: 30%;
     text-align: center;
     margin: auto;
     background-color: #ff523b;
