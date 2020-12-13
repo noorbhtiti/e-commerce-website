@@ -105,10 +105,12 @@ def checkOut():
                     message = "Den/Dessa varor har vi ont om i lagret: "
                     for i, x in enumerate(outOfStock):
                         if(i==0 and len(outOfStock)>1):
-                            message += x['ProductName']
-                            message += " och"
+                            if(x['ProductName'] not in message):
+                                message += x['ProductName']
+                                message += " och "
                         else:
-                            message += x['ProductName']
+                            if(x['ProductName'] not in message):
+                                message += x['ProductName']
                     session['orderMsg'] = message                         
                     cursor.close()
                     #return render_template('Shop.html', logged=logged,
