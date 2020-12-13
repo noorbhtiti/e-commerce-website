@@ -164,7 +164,10 @@ def productSida(Proid):
     if logged:
         userid = getUserid(session['email'])
         if request.method == "POST":
-            rate = request.form['rate']
+            try:
+                rate = request.form['rate']
+            except:
+                rate = 1
             comments = request.form['comments']
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('INSERT INTO UserReviews (UserID,ProductID ,Review,Rating) VALUES (%s ,%s ,%s,%s)',
