@@ -145,6 +145,14 @@ def productSida(Proid):
     if logged:
         counter = count(getUserid(session['email']))
 
+    if logged:
+        user = getUserid(session['email'])
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT UserID FROM UserReviews WHERE ProductID=%s', (Proid,))
+        theId = cursor.fetchone()
+        if theId is None:
+            HaveReview = False
+
     msg = ""
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
