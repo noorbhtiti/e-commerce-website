@@ -145,14 +145,6 @@ def productSida(Proid):
     if logged:
         counter = count(getUserid(session['email']))
 
-    if logged:
-        user = getUserid(session['email'])
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT UserID FROM UserReviews WHERE ProductID=%s', (Proid,))
-        theId = cursor.fetchone()
-        if theId is None:
-            HaveReview = False
-
     msg = ""
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -171,7 +163,10 @@ def productSida(Proid):
 
     if logged:
         userid = getUserid(session['email'])
-        if request.method == "POST":
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT UserID FROM UserReviews WHERE ProductID=%s', (Proid,))
+        theId = cursor.fetchone()
+        if theId is None and request.method == "POST":
             try:
                 rate = request.form['rate']
             except:
@@ -180,6 +175,18 @@ def productSida(Proid):
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('INSERT INTO UserReviews (UserID,ProductID ,Review,Rating) VALUES (%s ,%s ,%s,%s)',
                            (userid, Proid, comments, rate,))
+            mysql.connection.commit()
+            return redirect(request.referrer)
+        elif request.method == "POST":
+            print("Update")
+            try:
+                rate = request.form['rate']
+            except:
+                rate = 1
+            comments = request.form['comments']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('UPDATE UserReviews SET Review=%s,Rating=%s WHERE UserID=%s and ProductID=%s',
+                           (comments, rate, getUserid(session['email']), Proid,))
             mysql.connection.commit()
             return redirect(request.referrer)
 
