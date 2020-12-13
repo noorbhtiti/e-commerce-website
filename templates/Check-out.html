@@ -73,16 +73,16 @@
         <div id="order-boxes">
 
 
-           <form action="" method="POST">
+           <form method="POST">
 
             <div id="text-box1">
-                <h3 id="firstname" >First Name:</h3>
-                <h3 id="firstname" > {{ lista[0] }}</h3>
+                <h3 id="firstname" >First Name: </h3>
+                <input name="edit-fname" type="text" class="input-field" placeholder="{{lista[0]}}" >
             </div>
 
             <div id="text-box2">
-                <h3 id="lastname" >Last Name:</h3>
-                <h3 id="lastname" > {{ lista[1] }} </h3>
+                <h3 id="firstname" >Last Name: </h3>
+                <input name="edit-lname" type="text" class="input-field" placeholder="{{lista[1]}}" >
             </div>
 
             <br>
@@ -90,26 +90,27 @@
 
             <div id="text-box3">
                 <h3 id="firstname" >Email:</h3>
-                <input name="edit-email" type="email" class="input-field" placeholder="{{lista[2]}}" >
+                <input name="edit-email" type="email" class="input-field" placeholder="{{lista[3]}}" >
             </div>
 
             <br>
 
             <div id="text-box3">
                 <h3 id="lastname" >Phone Number: </h3>
-                <input name="edit-phone" type="text" class="input-field" placeholder="{{lista[3]}}" >
+                <input name="edit-phone" type="text" class="input-field" placeholder="{{lista[2]}}" >
             </div>
 
             <br>
 
             <div id="text-box3">
                 <h3 id="firstname" >Adress: </h3>
-                <input name="edit-email" type="text" class="input-field" placeholder="{{lista[4]}}" >
+                <input name="edit-adress" type="text" class="input-field" placeholder="{{lista[4]}}" >
             </div>
 
 
             <br>
-           </form>
+            
+           
 
          </div>
     </div>
@@ -121,22 +122,23 @@
         <hr>
         <div id="deltotal-box">
             <h2 id="Deltotal">Deltotal: </h2>
-            <h2 id="Deltotal-right">$</h2>
+            <h2 id="Deltotal-right">{{price}}$</h2>
         </div>
         <div id="deltotal-box">
             <h2 id="Deltotal">Shipping: </h2>
-            <h2 id="Deltotal-right">$</h2>
+            <h2 id="Deltotal-right">{{shippingCost}}$</h2>
         </div>
         <hr>
         <div id="deltotal-box">
             <h2 id="Deltotal">Total: </h2>
-            <h2 id="Deltotal-right">$</h2>
+            <h2 id="Deltotal-right">{{price + shippingCost}}$</h2>
         </div>
 
         <div id="btn-box">
-            <a href="/place-order">
-            <button id="checkout-btn" >Place Order</button>
-            </a>
+        
+            <button type="submit" id="checkout-btn" >Place Order</button>
+            
+        </form>
         </div>
     </div>
 
