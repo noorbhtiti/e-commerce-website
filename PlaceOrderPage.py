@@ -45,7 +45,7 @@ def checkOut():
             # gör en if request.methods==post här innan man kör allting!
             userid = getUserid(session['email'])
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('SELECT ProductsID  FROM Cart WHERE UserID = %s', (userid,))
+            cursor.execute('SELECT * FROM Cart WHERE UserID = %s', (userid,))
             prods = cursor.fetchall()
             price = 0
             for x in prods:  # räkna pris
@@ -91,7 +91,7 @@ def checkOut():
                     a = cursor.fetchone()
                     if(int(a['NumberInStock'])>0):
                         #print(int(a['NumberInStock']))
-                        cursor.execute('UPDATE Products SET NumberInStock=%s WHERE ProductID= %s ', (int(a['NumberInStock'])-1, x['ProductsID'],))
+                        cursor.execute('UPDATE Products SET NumberInStock=%s WHERE ProductID= %s ', (int(a['NumberInStock'])-(int(x['Amount'])), x['ProductsID'],))
                     else:
                         outOfStock.append(a)
                     #print(a)
