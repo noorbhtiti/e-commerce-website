@@ -53,6 +53,9 @@ def checkOut():
                 getprodsviaip = cursor.fetchall()
                 price += getprodsviaip[0]['ProductPrice']
 
+            if price > 0:
+                price += 25
+
             if prods:  # om det finns produkter
                 # skapa en Order
 
@@ -93,7 +96,8 @@ def checkOut():
                         #print(int(a['NumberInStock']))
                         cursor.execute('UPDATE Products SET NumberInStock=%s WHERE ProductID= %s ', (int(a['NumberInStock'])-(int(x['Amount'])), x['ProductsID'],))
                     else:
-                        outOfStock.append(a)
+                        if(a not in outOfStock):
+                            outOfStock.append(a)
                     #print(a)
                     cursor.execute(
                         'INSERT INTO `OrderDetails`( `OrderID`, `ProductID`,`BuyingPrice` ,`Amount`) VALUES (%s,%s,%s,%s)',
@@ -105,12 +109,10 @@ def checkOut():
                     message = "Den/Dessa varor har vi ont om i lagret: "
                     for i, x in enumerate(outOfStock):
                         if(i==0 and len(outOfStock)>1):
-                            if(x['ProductName'] not in message):
-                                message += x['ProductName']
-                                message += " och "
+                            message += x['ProductName']
+                            message += " och "
                         else:
-                            if(x['ProductName'] not in message):
-                                message += x['ProductName']
+                            message += x['ProductName']
                     session['orderMsg'] = message                         
                     cursor.close()
                     #return render_template('Shop.html', logged=logged,
