@@ -164,7 +164,7 @@ def productSida(Proid):
     if logged:
         userid = getUserid(session['email'])
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM UserReviews WHERE ProductID=%s, UserID=%s', (Proid, userid,))
+        cursor.execute('SELECT * FROM UserReviews WHERE ProductID=%s and UserID=%s', (Proid, userid,))
         theId = cursor.fetchone()
         print(theId)
         if theId is None and request.method == "POST":
