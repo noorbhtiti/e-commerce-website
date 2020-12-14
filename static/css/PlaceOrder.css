@@ -230,12 +230,26 @@ span.step {
     display: -webkit-inline-box;
   }
 
-  .input-field{
+.input-field-short{
     background: none;
-    border: none;
     margin-left: 25px;
-    width: 400px;
-  }
+    width: auto;
+    width: 100%;
+    border: 0 none;
+    outline: none;
+    background: transparent;
+}
+
+.input-field-long{
+    background: none;
+    margin-left: 25px;
+    width: auto;
+    width: 300%;
+    border: 0 none;
+    outline: none;
+    background: transparent;
+}
+
 
     #enter-info-text{
       text-align: center;

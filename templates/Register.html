@@ -42,7 +42,7 @@ make cart page -->
           <form id="register" class="input-group" action="{{ url_for('RegisterPage.register') }}" method="post">
               <input name="fName" type="text" class="input-field" placeholder="First Name" required>
               <input name="lName" type="text" class="input-field" placeholder="Last Name" required>
-              <input name="phone" type="tel" pattern="[0-9]{10}" class="input-field" placeholder="Phone number XXXXXXXXXX" required>
+              <input name="phone" type="tel" pattern="[0-9]{10}" class="input-field" placeholder="Phone number (Format:XXXXXXXXXX)" required>
               <input name="email" type="email" class="input-field" placeholder="Enter Email" required>
               <input name="pw" type="password" class="input-field" placeholder="Enter Password" required>
               <input id="sbtn" value="Register" type="submit" />
