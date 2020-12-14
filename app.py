@@ -44,20 +44,20 @@ db = SQLAlchemy(app)
 db.Model.metadata.reflect(bind=db.engine, schema='db941227')
 
 
-
 class User(db.Model):
     # skapa en model på en befintlig tabell!!!!!!!!!!!
     __table__ = db.Model.metadata.tables['db941227.Users']
 
     def __repr__(self):
-        return "%s, %s"%(self.FirstName, self.UserID)
+        return "%s, %s" % (self.FirstName, self.UserID)
 
 
 class Categorys(db.Model):
     __table__ = db.Model.metadata.tables['db941227.Categorys']
 
     def __repr__(self):
-        return "%s, %s"%(self.CategoryName, self.CategoryID)
+        return "%s, %s" % (self.CategoryName, self.CategoryID)
+
 
 class Cart(db.Model):
     Products_ID = db.relationship("Product", backref="Cart")
@@ -67,9 +67,11 @@ class Cart(db.Model):
     def __repr__(self):
         return self.UserID
 
+
 class CartView(ModelView):
-    column_list = ("User_ID", "Products_ID","Amount")
-    form_columns = ["User_ID", "Products_ID", "Amount",]
+    column_list = ("User_ID", "Products_ID", "Amount")
+    form_columns = ["User_ID", "Products_ID", "Amount", ]
+
     def is_accessible(self):
         try:
             email = uppercase(session['email'])
@@ -82,6 +84,7 @@ class CartView(ModelView):
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
+
 class Orders(db.Model):
     User_ID = db.relationship("User", backref="Orders")
     __table__ = db.Model.metadata.tables['db941227.Orders']
@@ -89,10 +92,13 @@ class Orders(db.Model):
     def __repr__(self):
         return self.UserID
 
+
 class OrdersView(ModelView):
-    column_list = ("User_ID", "OrderID", "Amount", "OrderStatus", "ShippingAdress", "OrderPhoneNumber", "OrderEmail", "DataOfOrder")
-    #form_columns = ["User_ID", "Amount", "OrderStatus", "ShippingAdress", "OrderPhoneNumber", "OrderEmail", "DataOfOrder",]
+    column_list = (
+    "User_ID", "OrderID", "Amount", "OrderStatus", "ShippingAdress", "OrderPhoneNumber", "OrderEmail", "DataOfOrder")
+    # form_columns = ["User_ID", "Amount", "OrderStatus", "ShippingAdress", "OrderPhoneNumber", "OrderEmail", "DataOfOrder",]
     can_create = False
+
     def is_accessible(self):
         try:
             email = uppercase(session['email'])
@@ -166,7 +172,8 @@ class Product(db.Model):
         return self.ProductName
 
     def __repr__(self):
-        return "%s, %s"%(self.ProductName, self.ProductID)
+        return "%s, %s" % (self.ProductName, self.ProductID)
+
 
 class ProductView(ModelView):
     form_excluded_columns = ("Rating",)
@@ -226,7 +233,7 @@ class AdminUserView(ModelView):
 
     def on_model_change(self, form, model, is_created):
         email = uppercase(str(form.Email.data))
-        #print(email)
+        # print(email)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Users WHERE Email = %s', (email,))
         account = cursor.fetchone()
@@ -277,5 +284,3 @@ def verify():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
