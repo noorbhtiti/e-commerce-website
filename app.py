@@ -108,7 +108,7 @@ class OrdersView(ModelView):
 
 class CategorysView(ModelView):
     column_display_pk = True
-    form_columns = ["CategoryName", ]
+    form_columns = ["CategoryName", "Image"]
 
     def is_accessible(self):
         try:
