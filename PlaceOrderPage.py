@@ -53,6 +53,9 @@ def checkOut():
                 getprodsviaip = cursor.fetchall()
                 price += getprodsviaip[0]['ProductPrice']
 
+            if price > 0:
+                price += 25
+
             if prods:  # om det finns produkter
                 # skapa en Order
 
