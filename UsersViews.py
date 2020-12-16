@@ -160,6 +160,13 @@ def productSida(Proid):
     if logged:
         counter = count(getUserid(session['email']))
 
+    userid = 0
+    try:
+        if logged:
+            userid = getUserid(session['email'])
+    except:
+        userid
+
     msg = ""
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -215,4 +222,29 @@ def productSida(Proid):
                                    msg=msg, lista=lista)
 
     return render_template("Product-page.html", prods=prods, logged=logged, counter=counter, reviews=reviews,
-                           lista=lista)
+                           lista=lista, userid=userid)
+
+
+@UsersViews.route("/shop/product-<Proid>/<ReviewID>")
+def deletereview(Proid, ReviewID):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+
+    counter = 0
+    if logged:
+        counter = count(getUserid(session['email']))
+
+    if logged:
+        userid = getUserid(session['email'])
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('DELETE FROM UserReviews WHERE ProductID=%s and UserID=%s and ReviewID=%s',
+                       (Proid, userid, ReviewID))
+        mysql.connection.commit()
+        return redirect(request.referrer)
+
+    else:
+        return redirect(request.referrer)
