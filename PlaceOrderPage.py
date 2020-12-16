@@ -118,11 +118,11 @@ def checkOut():
 
                     url = "/place-order." + str(nextID['AUTO_INCREMENT'])
                     return redirect(url, code=302)
-                except Error as e:
-                    print(e)
+                except:
                     flash("Något fel hände :( Testa gärna igen!")
                     mysql.connection.rollback()
                 finally:
+                    print("FINALLY")
                     cursor.close()
             else:
                 return "<h1>Din cart är tom</h1>"
