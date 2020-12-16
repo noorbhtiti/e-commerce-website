@@ -59,7 +59,7 @@ def shopCategory(category):
         prodscat = cursor.fetchall()
         # print("prodscat ", prodscat)
 
-        if (prodscat):
+        if prodscat:
             prods = []
             for x in prodscat:
                 # print(x['ProductID'])
