@@ -113,10 +113,10 @@
 
             <div id="text-box3">
                 <h3 id="firstname" >Adress: </h3>
-                {% if adressBool %}
-                    <input name="edit-adress" type="text" class="input-field-long" placeholder="{{lista[4]}}" >
-                {% else %}
+                {% if adressNotBlank == False %}
                     <input name="edit-adress" type="text" class="input-field-long" placeholder="{{lista[4]}}" required>
+                {% else %}
+                    <input name="edit-adress" type="text" class="input-field-long" placeholder="{{lista[4]}}">
                 {% endif %}
 
             </div>
