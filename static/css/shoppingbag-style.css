@@ -195,3 +195,35 @@ span.step {
     width: 1.6em;
   }
 
+#minus-btn{
+    margin-top: 10px;
+    width: 25px;
+    height: 25px;
+    background-color:#ff523b ;
+    border: none;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+#mitt-box{
+    margin-top: 10px;
+    display: inline;
+    text-align: center;
+    position: relative;
+    padding-left:20px ;
+    padding-right: 20px;
+}
+
+#plus-btn{
+    margin-top: 10px;
+    width: 25px;
+    height: 25px;
+    background-color:#ff523b ;
+    border: none;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+
+}
+
