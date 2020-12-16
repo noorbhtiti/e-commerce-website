@@ -106,7 +106,6 @@ def checkOut():
                                        (userid, x['ProductsID'],))
                     if len(outOfStock) == 0:
                         mysql.connection.commit()
-                        cursor.close()
                     else:
                         message = "Den/Dessa varor har vi ont om i lagret: "
                         for i, x in enumerate(outOfStock):
@@ -119,10 +118,11 @@ def checkOut():
 
                     url = "/place-order." + str(nextID['AUTO_INCREMENT'])
                     return redirect(url, code=302)
-                except:
-                    # print("ROLLBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACK")
+                except Error as e:
+                    print(e)
                     flash("Något fel hände :( Testa gärna igen!")
                     mysql.connection.rollback()
+                finally:
                     cursor.close()
             else:
                 return "<h1>Din cart är tom</h1>"

@@ -26,7 +26,9 @@ def login():
         account = cursor.fetchone()
         if account:
             session['email'] = email
-            if('http://localhost:5000/shop' in request.referrer):
+            #################################################################################################################################
+            if('http://localhost:5000/shop' in request.referrer): ###########################################################################
+            #################################################################################################################################
                 return redirect(url_for('UsersViews.shop'))
             return redirect(url_for('ProfilePage.profile', user=email))
             # return redirect(request.referrer)

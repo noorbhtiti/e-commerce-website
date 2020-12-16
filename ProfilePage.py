@@ -149,6 +149,9 @@ def OrdersDetails(OrdID):
     except:
         logged = False
 
+    if(not logged):
+        return "<h1>du är inte inloggad!</h1>"
+    
     if logged:
         counter = count(getUserid(session['email']))
         userid = getUserid(session['email'])
@@ -156,10 +159,17 @@ def OrdersDetails(OrdID):
         cursor.execute('SELECT * FROM Orders WHERE UserID=%s', (userid,))
         orders = cursor.fetchall()
 
-    if logged:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM OrderDetails WHERE OrderID=%s', (OrdID,))
         orderD = cursor.fetchall()
+
+        for x in orderD:
+            cursor.execute('SELECT * FROM Orders WHERE OrderID=%s', (x['OrderID'],))
+            temp = cursor.fetchone()
+            if(temp['UserID'] != userid):
+                return render_template('Shop.html', logged=logged,
+                               message="You cannot look into orders which are not yours!",counter=counter)
+
         # print(orderD)
         NameLista = []
         ImgLista = []

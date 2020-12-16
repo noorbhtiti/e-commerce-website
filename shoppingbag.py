@@ -13,7 +13,7 @@ mysql = MySQL(app)
 shoppingbag = Blueprint('shoppingbag', __name__, static_folder='static', template_folder='templates')
 
 
-@shoppingbag.route('/cart')
+@shoppingbag.route('/cart', methods=["GET","POST"])
 def cart():
     logged = False
     try:
@@ -56,6 +56,53 @@ def cart():
     else:
         msg = "Please login to see cart"
         return render_template('login.html', errormsg=msg)
+
+@shoppingbag.route("/cart/add.<int:prodid>")
+def cartAdd(prodid):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+    
+    if (not logged):
+        return redirect(request.referrer)
+    
+    userid = getUserid(session['email'])
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute('INSERT INTO `Cart`(`UserID`, `ProductsID`, `Amount`) VALUES (%s, %s, %s)',(userid,prodid,1))
+    mysql.connection.commit()
+    return redirect(url_for("shoppingbag.cart"))
+
+
+
+@shoppingbag.route("/cart/rem.<int:prodid>")
+def cartRem(prodid):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+    
+    if (not logged):
+        return redirect(request.referrer)
+    
+    userid = getUserid(session['email'])
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute('SELECT CartID from Cart WHERE UserID=%s and ProductsID=%s',(userid,prodid))
+    x = cursor.fetchone()
+    cursor.execute('DELETE FROM Cart WHERE CartID=%s',(x['CartID'],))
+    mysql.connection.commit()
+    return redirect(url_for("shoppingbag.cart"))
+
+
+
 
 
 @shoppingbag.route("/cart.<int:idt>")

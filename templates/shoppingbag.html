@@ -84,9 +84,9 @@
                 <p id= desc > {{prods['Description']}} </p>
                 <p id= desc > {{prods['ProductPrice']}} </p>
                  <div id="d1">
-                     <button id="minus-btn"> - </button>
-                        <div id="mitt-box"> 5 </div>
-                     <button id="plus-btn"> + </button>
+                     <a href="/cart/rem.{{prods['ProductID']}}"><button id="minus-btn"> - </button></a>
+                        <div id="mitt-box"> {{cartDict[prods['ProductID']]}} </div>
+                     <a href="/cart/add.{{prods['ProductID']}}"><button id="plus-btn"> + </button></a>
                   </div>
 
                   <div id="d2">
