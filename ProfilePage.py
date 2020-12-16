@@ -178,17 +178,27 @@ def OrdersDetails(OrdID):
 
 @ProfilePage.route('Cancel/<orderID>')
 def CancelOrder(orderID):
-
-
-
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-
     cursor.execute('SELECT OrderStatus FROM Orders WHERE OrderID=%s',(orderID,))
     orderStatus = cursor.fetchone()
-    print(orderStatus)
+
+
     if(orderStatus['OrderStatus']!="Processing Order"):
         flash('You cannot cancel an order which is not being processed!')
-    #cursor.execute('UPDATE Users SET FirstName=%s WHERE Email= %s ', (fName, user,))
+        return redirect(request.referrer)
+
+    cursor.execute('SELECT * FROM OrderDetails WHERE OrderID=%s',(orderID,))
+    products = cursor.fetchall()
+    
+    print(products)
+    for x in products:
+        cursor.execute('SELECT NumberInStock FROM Products WHERE ProductID=%s',(x['ProductID'],))
+        amount=cursor.fetchone()
+        print(amount)
+        newAmount = int(int(amount['NumberInStock'])+int(x['Amount']))
+        cursor.execute('UPDATE Products SET NumberInStock=%s WHERE ProductID=%s',(newAmount, x['ProductID'],))
+        mysql.connection.commit()
+
     cursor.execute('UPDATE Orders SET OrderStatus=%s WHERE OrderID=%s',("Canceled", orderID,))
     mysql.connection.commit()
     cursor.close()

@@ -70,8 +70,8 @@ class Cart(db.Model):
     User_ID = db.relationship("User", backref="Cart")
     __table__ = db.Model.metadata.tables['db941227.Cart']
 
-    def __repr__(self):
-        return self.UserID
+    #def __repr__(self):
+    #    return self.UserID
 
 
 class CartView(ModelView):
@@ -95,8 +95,8 @@ class Orders(db.Model):
     User_ID = db.relationship("User", backref="Orders")
     __table__ = db.Model.metadata.tables['db941227.Orders']
 
-    def __repr__(self):
-        return self.UserID
+    #def __repr__(self):
+    #    return self.UserID
 
 
 class OrdersView(ModelView):
@@ -220,7 +220,7 @@ class AdminIndexView(AdminIndexView):
 
 class UserView(ModelView):
     column_searchable_list = ('Email', "FirstName", "LastName", "PhoneNumber")
-
+    form_columns = ["FirstName", "LastName" ,"PhoneNumber" ,"Email" ,"Password" ,"Adress",]
     def is_accessible(self):
         try:
             email = uppercase(session['email'])

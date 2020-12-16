@@ -36,6 +36,9 @@ def checkOut():
     counter = 0
     price = 0
     shippingCost = 0
+    ##########################
+    adressBool = False
+    #########################
     if logged:
         counter = count(getUserid(session['email']))
     else:
@@ -70,15 +73,18 @@ def checkOut():
                 phoneNumber = user['PhoneNumber']
                 email = user['Email']
                 adress = user['Adress']
+                    
                 lista = [firstName, lastName, email, phoneNumber, adress]
                 i=0
                 for key, value in request.form.items():
                     if(request.form[key]!=""):
                         lista[i]=value
                     i+=1
-                    
-                
 
+                ###############################################################
+                if(adress==""):
+                    adressBool = True
+                    ################################################################
 
                 outOfStock = []
                 try:
@@ -95,7 +101,7 @@ def checkOut():
                     for x in prods:  # kopiera över allt från cart till orderdetails
                         cursor.execute('SELECT * FROM Products WHERE ProductID= %s ', (x['ProductsID'],))
                         a = cursor.fetchone()
-                        if(int(a['NumberInStock'])>x['Amount']):
+                        if(int(a['NumberInStock'])>=x['Amount']):
                             cursor.execute('UPDATE Products SET NumberInStock=%s WHERE ProductID= %s ', (int(a['NumberInStock'])-(int(x['Amount'])), x['ProductsID'],))
                         else:
                             if(a not in outOfStock):
@@ -153,7 +159,7 @@ def checkOut():
 
         if(price):
             shippingCost = 25
-        return render_template('Check-out.html', lista=lista, logged=logged, counter=counter, price=price, shippingCost=shippingCost)
+        return render_template('Check-out.html', lista=lista, logged=logged, counter=counter, price=price, shippingCost=shippingCost, adressBool=adressBool)
     
     else:
         return redirect(request.referrer)
