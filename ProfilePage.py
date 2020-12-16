@@ -166,9 +166,11 @@ def OrdersDetails(OrdID):
         for x in orderD:
             cursor.execute('SELECT * FROM Orders WHERE OrderID=%s', (x['OrderID'],))
             temp = cursor.fetchone()
-            if(temp['UserID'] != userid):
-                return render_template('Shop.html', logged=logged,
-                               message="You cannot look into orders which are not yours!",counter=counter)
+            if temp['UserID'] != userid:
+                return redirect(url_for("ProfilePage.Orders"))
+                #return render_template('Shop.html', logged=logged,
+                 #              message="You cannot look into orders which are not yours!",counter=counter)
+
 
         # print(orderD)
         NameLista = []
