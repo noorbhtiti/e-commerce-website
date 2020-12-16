@@ -76,50 +76,54 @@ def checkOut():
                     if(request.form[key]!=""):
                         lista[i]=value
                     i+=1
-                #print(lista)
                     
+                
 
-                cursor.execute('SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE (TABLE_NAME = "Orders");')
-                nextID = cursor.fetchone()
-                ################################ JAG HÅRDKODADE RADEN UNDER MED RANDOM INFO!!!!!!! ##############################
-                cursor.execute(
+
+                outOfStock = []
+                try:
+                    #Hitta nästa auto_increment på OrderID
+                    cursor.execute('SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE (TABLE_NAME = "Orders");')
+                    nextID = cursor.fetchone()
+
+                    #Skapa en ny Order
+                    cursor.execute(
                     'INSERT INTO `Orders`(`UserID`, `Amount`, `OrderStatus`,`FirstName`, `LastName`,`ShippingAdress`, `OrderPhoneNumber`, `OrderEmail`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',
                     (userid, price, "Processing Order",lista[0],lista[1], lista[4], lista[3], lista[2],))
-                #################################################################################################################
-                #mysql.connection.commit()
-                outOfStock = []
-                # print(nextID)
-                for x in prods:  # kopiera över allt från cart till orderdetails
-                    cursor.execute('SELECT * FROM Products WHERE ProductID= %s ', (x['ProductsID'],))
-                    a = cursor.fetchone()
-                    if(int(a['NumberInStock'])>0):
-                        #print(int(a['NumberInStock']))
-                        cursor.execute('UPDATE Products SET NumberInStock=%s WHERE ProductID= %s ', (int(a['NumberInStock'])-(int(x['Amount'])), x['ProductsID'],))
-                    else:
-                        if(a not in outOfStock):
-                            outOfStock.append(a)
-                    #print(a)
-                    cursor.execute(
-                        'INSERT INTO `OrderDetails`( `OrderID`, `ProductID`,`BuyingPrice` ,`Amount`) VALUES (%s,%s,%s,%s)',
-                        (nextID['AUTO_INCREMENT'], x['ProductsID'], a['ProductPrice'], 1,))
-                    cursor.execute('DELETE FROM Cart WHERE UserID =%s and ProductsID = %s', (userid, x['ProductsID'],))
-                if(len(outOfStock)==0):
-                    mysql.connection.commit()
-                else:
-                    message = "Den/Dessa varor har vi ont om i lagret: "
-                    for i, x in enumerate(outOfStock):
-                        if(i==0 and len(outOfStock)>1):
-                            message += x['ProductName']
-                            message += " och "
+
+
+                    for x in prods:  # kopiera över allt från cart till orderdetails
+                        cursor.execute('SELECT * FROM Products WHERE ProductID= %s ', (x['ProductsID'],))
+                        a = cursor.fetchone()
+                        if(int(a['NumberInStock'])>x['Amount']):
+                            cursor.execute('UPDATE Products SET NumberInStock=%s WHERE ProductID= %s ', (int(a['NumberInStock'])-(int(x['Amount'])), x['ProductsID'],))
                         else:
-                            message += x['ProductName']
-                    session['orderMsg'] = message                         
-                    cursor.close()
-                    #return render_template('Shop.html', logged=logged,
-                    #               message="Kvitto: ", orderid=orderid,counter=0)
-                url = "/place-order."+str(nextID['AUTO_INCREMENT'])
-                return redirect(url, code=302)
+                            if(a not in outOfStock):
+                                outOfStock.append(a)
+                        cursor.execute(
+                            'INSERT INTO `OrderDetails`( `OrderID`, `ProductID`,`BuyingPrice` ,`Amount`) VALUES (%s,%s,%s,%s)',
+                            (nextID['AUTO_INCREMENT'], x['ProductsID'], a['ProductPrice'], 1,))
+                        cursor.execute('DELETE FROM Cart WHERE UserID =%s and ProductsID = %s', (userid, x['ProductsID'],))
+                    if(len(outOfStock)==0):
+                        mysql.connection.commit()
+                        cursor.close()
+                    else:
+                        message = "Den/Dessa varor har vi ont om i lagret: "
+                        for i, x in enumerate(outOfStock):
+                            if(i==0 and len(outOfStock)>1):
+                                message += x['ProductName']
+                                message += " och "
+                            else:
+                                message += x['ProductName']
+                        session['orderMsg'] = message                         
                     
+                    url = "/place-order."+str(nextID['AUTO_INCREMENT'])
+                    return redirect(url, code=302)
+                except:
+                    #print("ROLLBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACK")
+                    flash("Något fel hände :( Testa gärna igen!")
+                    mysql.connection.rollback()
+                    cursor.close()
             else:
                 return "<h1>Din cart är tom</h1>"
 

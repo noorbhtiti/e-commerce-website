@@ -175,3 +175,21 @@ def OrdersDetails(OrdID):
                                NameLista=NameLista, ImgLista=ImgLista)
     else:
         return "<h1>du är inte inloggad!</h1>"
+
+@ProfilePage.route('Cancel/<orderID>')
+def CancelOrder(orderID):
+
+
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute('SELECT OrderStatus FROM Orders WHERE OrderID=%s',(orderID,))
+    orderStatus = cursor.fetchone()
+    print(orderStatus)
+    if(orderStatus['OrderStatus']!="Processing Order"):
+        flash('You cannot cancel an order which is not being processed!')
+    #cursor.execute('UPDATE Users SET FirstName=%s WHERE Email= %s ', (fName, user,))
+    cursor.execute('UPDATE Orders SET OrderStatus=%s WHERE OrderID=%s',("Canceled", orderID,))
+    mysql.connection.commit()
+    cursor.close()
+    return redirect(request.referrer)

@@ -69,6 +69,16 @@
 
 <!-- ---------------------------changes starts here---------------------->
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <center>  
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+</center>
+  {% endif %}
+{% endwith %}
+
 
 <div id="main-box">
 

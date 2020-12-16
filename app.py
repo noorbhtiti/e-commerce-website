@@ -1,9 +1,13 @@
+import os
+
 from flask import *
 from datetime import timedelta
 import MySQLdb.cursors
-from flask_admin import Admin, AdminIndexView  # admin
+from flask_admin import Admin, AdminIndexView, form # admin
 from flask_admin.contrib.sqla import ModelView  # admin
 from flask_admin.menu import MenuLink  # admin
+#from flask.ext.admin.form.upload import FileUploadField # admin
+from flask_admin.form.upload import ImageUploadField
 from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy  # admin
 from wtforms.validators import ValidationError
@@ -36,6 +40,9 @@ app.config['MYSQL_PASSWORD'] = '941227'
 app.config['MYSQL_DB'] = 'db941227'
 
 # admin
+basedir = os.path.abspath(os.path.dirname(__file__))
+file_path = os.path.join(basedir, 'static')
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://941227:941227@utbweb.its.ltu.se/db941227'
 app.config['FLASK_ADMIN_SWATCH'] = 'Cyborg'  # http://bootswatch.com/3/ för att bälja swatches # admin panel
@@ -178,6 +185,11 @@ class ProductView(ModelView):
     form_excluded_columns = ("Rating",)
     form_columns = ["ProductName", "ProductPrice", "NumberInStock", "Description", "imageName", ]
     column_display_pk = True
+
+    form_extra_fields = {
+        'imageName': form.ImageUploadField(
+            'Image', base_path=file_path, thumbnail_size=(100, 100, True))
+    }
 
     def is_accessible(self):
         try:

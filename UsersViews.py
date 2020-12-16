@@ -131,6 +131,21 @@ def shop():
 
 # shop block end#
 
+def updateRating(prodid):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT Rating FROM UserReviews where ProductID = %s', (prodid,))
+    ratings = cursor.fetchall()
+    totalRating = 0
+    for x in ratings:
+        totalRating += x['Rating']
+    totalRating=int(round(totalRating/len(ratings)))
+    cursor.execute('UPDATE Products SET Rating=%s WHERE ProductID=%s',(totalRating,prodid,))
+    mysql.connection.commit()
+    #print(totalRating)
+
+
+    #'UPDATE UserReviews SET Review=%s,Rating=%s WHERE UserID=%s and ProductID=%s',
+                          # (comments, rate, getUserid(session['email']), Proid,))
 
 @UsersViews.route("/shop/product-<Proid>", methods=['GET', 'POST'])
 def productSida(Proid):
@@ -166,7 +181,7 @@ def productSida(Proid):
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM UserReviews WHERE ProductID=%s and UserID=%s', (Proid, userid,))
         theId = cursor.fetchone()
-        print(theId)
+        #print(theId)
         if theId is None and request.method == "POST":
             try:
                 rate = request.form['rate']
@@ -177,9 +192,10 @@ def productSida(Proid):
             cursor.execute('INSERT INTO UserReviews (UserID,ProductID ,Review,Rating) VALUES (%s ,%s ,%s,%s)',
                            (userid, Proid, comments, rate,))
             mysql.connection.commit()
+            updateRating(Proid)
             return redirect(request.referrer)
         elif request.method == "POST":
-            print("Update")
+            #print("Update")
             try:
                 rate = request.form['rate']
             except:
@@ -189,6 +205,7 @@ def productSida(Proid):
             cursor.execute('UPDATE UserReviews SET Review=%s,Rating=%s WHERE UserID=%s and ProductID=%s',
                            (comments, rate, getUserid(session['email']), Proid,))
             mysql.connection.commit()
+            updateRating(Proid)
             return redirect(request.referrer)
 
     if not logged:

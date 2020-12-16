@@ -23,6 +23,7 @@ def cart():
         logged = False
 
     if logged:
+        
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         userid = getUserid(session['email'])
         cursor.execute('SELECT ProductsID FROM Cart WHERE UserID= %s ', (userid,))
