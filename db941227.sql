@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 14, 2020 at 04:03 PM
+-- Generation Time: Dec 16, 2020 at 08:35 PM
 -- Server version: 5.7.18-log
 -- PHP Version: 7.1.6
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `db941227`
 --
-CREATE DATABASE IF NOT EXISTS `db941227` DEFAULT CHARACTER SET utf8 COLLATE utf8_swedish_ci;
-USE `db941227`;
 
 -- --------------------------------------------------------
 
@@ -76,9 +74,9 @@ CREATE TABLE `Categorys` (
 --
 
 INSERT INTO `Categorys` (`CategoryID`, `CategoryName`, `Image`) VALUES
-(1, 'Mössa', 'mossa.jpg'),
-(2, 'Tröja', 'tsh.jpg'),
-(3, 'Bälte', 'balte.jpg');
+(1, 'Hat', 'mossa.jpg'),
+(2, 'T-shirt', 'tsh.jpg'),
+(3, 'Watch', 'Watch.jpg');
 
 -- --------------------------------------------------------
 
@@ -99,15 +97,19 @@ CREATE TABLE `OrderDetails` (
 --
 
 INSERT INTO `OrderDetails` (`OrderDetailsID`, `OrderID`, `ProductID`, `BuyingPrice`, `Amount`) VALUES
-(94, 86, 3, 200, 1),
-(95, 86, 3, 200, 1),
-(96, 86, 3, 200, 1),
-(97, 86, 3, 200, 1),
-(100, 88, 3, 200, 1),
-(109, 94, 3, 200, 1),
-(115, 97, 3, 200, 1),
-(116, 97, 3, 200, 1),
-(120, 100, 7, 10, 1);
+(142, 117, 14, 150, 1),
+(143, 117, 14, 150, 1),
+(144, 118, 16, 300, 1),
+(145, 119, 16, 300, 1),
+(146, 119, 16, 300, 1),
+(147, 119, 16, 300, 1),
+(148, 119, 16, 300, 1),
+(149, 119, 16, 300, 1),
+(150, 119, 16, 300, 1),
+(151, 119, 16, 300, 1),
+(152, 119, 16, 300, 1),
+(153, 119, 16, 300, 1),
+(154, 119, 16, 300, 1);
 
 -- --------------------------------------------------------
 
@@ -133,11 +135,9 @@ CREATE TABLE `Orders` (
 --
 
 INSERT INTO `Orders` (`OrderID`, `UserID`, `Amount`, `OrderStatus`, `FirstName`, `LastName`, `ShippingAdress`, `OrderPhoneNumber`, `OrderEmail`, `DataOfOrder`) VALUES
-(86, 45, 800, 'Processing Order', 'nour', 'bahtite', 'My place', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-14 00:19:10'),
-(88, 45, 200, 'Processing Order', 'nour', 'bahtite', 'My place', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-14 00:23:57'),
-(94, 45, 225, 'Processing Order', 'nour', 'bahtite', 'My place', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-14 00:34:02'),
-(97, 45, 425, 'Processing Order', 'nour', 'bahtite', 'My place', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-14 01:15:55'),
-(100, 46, 35, 'Processing Order', 'tjenis', 'a', '', 1234567890, 'A@A.A', '2020-12-14 01:41:39');
+(117, 45, 325, 'Canceled', 'nour', 'bahtite', 'test', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 16:54:23'),
+(118, 46, 325, 'Processing Order', 'tjenis', 'a', 'luleeee', 1234567890, 'A@A.A', '2020-12-16 19:01:20'),
+(119, 45, 3025, 'Processing Order', 'nour', 'bahtite', 'test', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 19:19:15');
 
 -- --------------------------------------------------------
 
@@ -160,16 +160,18 @@ CREATE TABLE `Products` (
 --
 
 INSERT INTO `Products` (`ProductID`, `ProductName`, `ProductPrice`, `NumberInStock`, `Description`, `Rating`, `imageName`) VALUES
-(2, 'Röd Gucci Tröja', 200, 0, 'En otroligt fin röd tröja. Mycket värd pengarna.', 3, 'tsh.jpg'),
-(3, 'Gul Kebab', 200, 9990, 'Jätte god kebab. Gjord från Noors händer.', 2, 'tsh.jpg'),
-(4, 'Bil', 30, 0, 'En bil till salu', 5, 'tsh.jpg'),
-(5, 'Data', 100, 5, 'GTX 3070. Wow!', 4, 'tsh.jpg'),
-(6, 'Penna', 5, 500, 'En penna. Bra att skriva ner saker med.', 1, 'tsh.jpg'),
-(7, 'En jätte fin tonfisk', 10, 999, 'Jätte god tonfisk som går att äta på dagarna', 4, 'tsh.jpg'),
-(10, 'test', 10, 0, '1\r\n', 1, 'tsh.jpg'),
-(11, '1', 1, 1, '1', 0, 'tsh.jpg'),
-(12, 'New item', 50, 20, 'Fin ', 0, 'tsh.jpg'),
-(13, 'abirbi', 10, 20, 'bla bla bla', 0, 'tsh.jpg');
+(14, 'CURREN', 150, 100, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 4, 'cf508a4902f6d34e304c7b8ced614776.jpg'),
+(15, 'MiGEER', 100, 100, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 2, 'product-image-74862151.jpg'),
+(16, 'CITIZEN', 300, 89, 'Eco-Drive 200m', 0, 'watch-man-citizen-diver-eco-drive-200m-steel-black-dial-bn0190-82e.jpg'),
+(17, 'RED', 20, 100, 'Warm and soft hat', 1, '91291359_cw_front.jpg'),
+(18, 'Green hat', 20, 100, 'Warm and soft', 0, 'beanie_classic_forest_green.jpg'),
+(19, 'Gray hat', 20, 100, 'Warm', 0, '666a-157078802986.jpg'),
+(20, 'lilac T-shirt', 10, 100, 'lilac ', 0, '1.jpg'),
+(21, 'lilac T-shirt', 10, 100, 'lilac ', 0, 'maglietta-colours-purple.jpg'),
+(22, 'Red T-shirt', 20, 100, 'Red', 0, 'roed-t-shirt-med-eget-tryck.jpg'),
+(23, 'Black T-shirt', 10, 100, 'Black', 0, 'tshirt-herr-unisex-vit.jpg'),
+(24, 'T-shirt', 10, 0, 'orang', 0, '2X351501F.25PQ_1_SPR20_461508v2.jpg'),
+(25, 'whiteT-shirt', 20, 0, 'white', 0, '15421803_1200_A.jpg');
 
 -- --------------------------------------------------------
 
@@ -188,19 +190,18 @@ CREATE TABLE `ProductsCategory` (
 --
 
 INSERT INTO `ProductsCategory` (`ID`, `ProductID`, `CategoryID`) VALUES
-(1, 5, 1),
-(2, 2, 2),
-(4, 2, 1),
-(5, 4, 1),
-(6, 2, 2),
-(7, 2, 2),
-(8, 3, 2),
-(9, 5, 2),
-(10, 5, 2),
-(11, 4, 2),
-(12, 3, 1),
-(13, 6, 1),
-(14, 13, 3);
+(18, 14, 3),
+(19, 15, 3),
+(20, 16, 3),
+(21, 17, 1),
+(22, 18, 1),
+(23, 19, 1),
+(24, 20, 2),
+(25, 21, 2),
+(26, 22, 2),
+(27, 23, 2),
+(28, 24, 2),
+(29, 25, 2);
 
 -- --------------------------------------------------------
 
@@ -222,11 +223,8 @@ CREATE TABLE `UserReviews` (
 --
 
 INSERT INTO `UserReviews` (`ReviewID`, `UserID`, `ProductID`, `Review`, `Rating`, `time`) VALUES
-(30, 45, 2, '', 3, '2020-12-13 23:31:44'),
-(31, 45, 4, 'Bra bil', 5, '2020-12-14 00:34:45'),
-(32, 46, 4, 'noor jag älskar dig <3', 1, '2020-12-14 00:44:30'),
-(33, 52, 4, 'Haha', 1, '2020-12-14 00:47:24'),
-(34, 46, 7, 'ganska gott', 4, '2020-12-14 01:40:17');
+(41, 46, 15, '', 2, '2020-12-16 17:30:05'),
+(42, 46, 17, '', 1, '2020-12-16 17:31:40');
 
 -- --------------------------------------------------------
 
@@ -249,7 +247,7 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`UserID`, `FirstName`, `LastName`, `PhoneNumber`, `Email`, `Password`, `Adress`) VALUES
-(45, 'nour', 'bahtite', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'My place'),
+(45, 'nour', 'bahtite', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'test'),
 (46, 'tjenis', 'a', 'a', 'A@A.A', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', ''),
 (48, 'b', 'b', 'b', 'B@B.B', '3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d', ''),
 (49, 'Nour', 'Bahtite', '+46707181110', 'S@S.S', '043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89', ''),
@@ -342,7 +340,7 @@ ALTER TABLE `Admin`
 -- AUTO_INCREMENT for table `Cart`
 --
 ALTER TABLE `Cart`
-  MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=334;
+  MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=389;
 --
 -- AUTO_INCREMENT for table `Categorys`
 --
@@ -352,27 +350,27 @@ ALTER TABLE `Categorys`
 -- AUTO_INCREMENT for table `OrderDetails`
 --
 ALTER TABLE `OrderDetails`
-  MODIFY `OrderDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `OrderDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 --
 -- AUTO_INCREMENT for table `Orders`
 --
 ALTER TABLE `Orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 --
 -- AUTO_INCREMENT for table `Products`
 --
 ALTER TABLE `Products`
-  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `ProductsCategory`
 --
 ALTER TABLE `ProductsCategory`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `UserReviews`
 --
 ALTER TABLE `UserReviews`
-  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `Users`
 --
@@ -393,8 +391,8 @@ ALTER TABLE `Cart`
 -- Constraints for table `OrderDetails`
 --
 ALTER TABLE `OrderDetails`
-  ADD CONSTRAINT `OrderDetails_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `Orders` (`OrderID`),
-  ADD CONSTRAINT `OrderDetails_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `Products` (`ProductID`);
+  ADD CONSTRAINT `OrderDetails_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `Orders` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `OrderDetails_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `Products` (`ProductID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Orders`
@@ -406,8 +404,8 @@ ALTER TABLE `Orders`
 -- Constraints for table `ProductsCategory`
 --
 ALTER TABLE `ProductsCategory`
-  ADD CONSTRAINT `ProductsCategory_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Products` (`ProductID`),
-  ADD CONSTRAINT `ProductsCategory_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `Categorys` (`CategoryID`);
+  ADD CONSTRAINT `ProductsCategory_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Products` (`ProductID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ProductsCategory_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `Categorys` (`CategoryID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `UserReviews`
