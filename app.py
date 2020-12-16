@@ -191,6 +191,25 @@ class ProductView(ModelView):
             'Image', base_path=file_path, thumbnail_size=(100, 100, True))
     }
 
+    def delete_model(self, model):
+        x = str(model).split(", ")
+        x = x[len(x)-1]
+        print(x)
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        try:
+            print(x)
+            cursor.execute('DELETE FROM Products WHERE ProductID = %s', (x,))
+            mysql.connection.commit()
+            print("deleted")
+            return True
+        except:
+            print("EXCEPT")
+            return False
+        finally:
+            print("FINALLY")
+            cursor.close()
+
+
     def is_accessible(self):
         try:
             email = uppercase(session['email'])
