@@ -32,7 +32,7 @@ def register():
             regMsg = 'Account Already exists'
         else:
             cursor.execute(
-                'INSERT INTO Users (FirstName, LastName, PhoneNumber, Email, Password) VALUES (%s , %s, %s, %s, %s)',
+                'INSERT INTO Users (FirstName, LastName, PhoneNumber, Email, Password, Adress) VALUES (%s , %s, %s, %s, %s, "")',
                 (fName, lName, phone, email, pw,))
             mysql.connection.commit()
             regMsg = 'Successfully registered!\n You can login now!'
