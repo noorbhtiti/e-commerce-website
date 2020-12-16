@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 16, 2020 at 08:35 PM
+-- Generation Time: Dec 16, 2020 at 10:06 PM
 -- Server version: 5.7.18-log
 -- PHP Version: 7.1.6
 
@@ -109,7 +109,11 @@ INSERT INTO `OrderDetails` (`OrderDetailsID`, `OrderID`, `ProductID`, `BuyingPri
 (151, 119, 16, 300, 1),
 (152, 119, 16, 300, 1),
 (153, 119, 16, 300, 1),
-(154, 119, 16, 300, 1);
+(154, 119, 16, 300, 1),
+(155, 120, 16, 300, 1),
+(156, 121, 15, 100, 1),
+(157, 121, 15, 100, 1),
+(158, 121, 15, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +141,9 @@ CREATE TABLE `Orders` (
 INSERT INTO `Orders` (`OrderID`, `UserID`, `Amount`, `OrderStatus`, `FirstName`, `LastName`, `ShippingAdress`, `OrderPhoneNumber`, `OrderEmail`, `DataOfOrder`) VALUES
 (117, 45, 325, 'Canceled', 'nour', 'bahtite', 'test', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 16:54:23'),
 (118, 46, 325, 'Processing Order', 'tjenis', 'a', 'luleeee', 1234567890, 'A@A.A', '2020-12-16 19:01:20'),
-(119, 45, 3025, 'Processing Order', 'nour', 'bahtite', 'test', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 19:19:15');
+(119, 45, 3025, 'Processing Order', 'nour', 'bahtite', 'test', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 19:19:15'),
+(120, 56, 325, 'Processing Order', 'q', 'q', 'aasd', 1234567890, 'Q@Q.Q', '2020-12-16 20:57:26'),
+(121, 56, 325, 'Processing Order', 'q', 'q', 'ad', 1234567890, 'Q@Q.Q', '2020-12-16 21:02:29');
 
 -- --------------------------------------------------------
 
@@ -161,8 +167,8 @@ CREATE TABLE `Products` (
 
 INSERT INTO `Products` (`ProductID`, `ProductName`, `ProductPrice`, `NumberInStock`, `Description`, `Rating`, `imageName`) VALUES
 (14, 'CURREN', 150, 100, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 4, 'cf508a4902f6d34e304c7b8ced614776.jpg'),
-(15, 'MiGEER', 100, 100, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 2, 'product-image-74862151.jpg'),
-(16, 'CITIZEN', 300, 89, 'Eco-Drive 200m', 0, 'watch-man-citizen-diver-eco-drive-200m-steel-black-dial-bn0190-82e.jpg'),
+(15, 'MiGEER', 100, 97, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 2, 'product-image-74862151.jpg'),
+(16, 'CITIZEN', 300, 88, 'Eco-Drive 200m', 0, 'watch-man-citizen-diver-eco-drive-200m-steel-black-dial-bn0190-82e.jpg'),
 (17, 'RED', 20, 100, 'Warm and soft hat', 1, '91291359_cw_front.jpg'),
 (18, 'Green hat', 20, 100, 'Warm and soft', 0, 'beanie_classic_forest_green.jpg'),
 (19, 'Gray hat', 20, 100, 'Warm', 0, '666a-157078802986.jpg'),
@@ -256,7 +262,8 @@ INSERT INTO `Users` (`UserID`, `FirstName`, `LastName`, `PhoneNumber`, `Email`, 
 (52, '1', '1', '1', '5@5.5', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', NULL),
 (53, 'tony', 'tonfisk', '12345678', 'TONY@FISK.COM', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', NULL),
 (54, 'Nour', 'Bahtite', '+46707181110', 'D@D.D', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', NULL),
-(55, '1', '1', '0734993498', '1@1.1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', NULL);
+(55, '1', '1', '0734993498', '1@1.1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', NULL),
+(56, 'q', 'q', '1234567890', 'Q@Q.Q', '8e35c2cd3bf6641bdb0e2050b76932cbb2e6034a0ddacc1d9bea82a6ba57f7cf', '');
 
 --
 -- Indexes for dumped tables
@@ -340,7 +347,7 @@ ALTER TABLE `Admin`
 -- AUTO_INCREMENT for table `Cart`
 --
 ALTER TABLE `Cart`
-  MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=389;
+  MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=393;
 --
 -- AUTO_INCREMENT for table `Categorys`
 --
@@ -350,12 +357,12 @@ ALTER TABLE `Categorys`
 -- AUTO_INCREMENT for table `OrderDetails`
 --
 ALTER TABLE `OrderDetails`
-  MODIFY `OrderDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `OrderDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 --
 -- AUTO_INCREMENT for table `Orders`
 --
 ALTER TABLE `Orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 --
 -- AUTO_INCREMENT for table `Products`
 --
@@ -375,7 +382,7 @@ ALTER TABLE `UserReviews`
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 --
 -- Constraints for dumped tables
 --
