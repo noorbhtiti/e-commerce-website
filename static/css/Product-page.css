@@ -307,3 +307,9 @@ span.step {
     text-align: center;
     color: red;
 }
+
+#review-delete{
+    float: right;
+    margin-right: 50px;
+    margin-top: 15px;
+}
