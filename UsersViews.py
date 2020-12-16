@@ -153,6 +153,7 @@ def productSida(Proid):
     cursor.execute('SELECT * FROM UserReviews where ProductID = %s', (Proid,))
     reviews = cursor.fetchall()
 
+    delete = False
     lista = []
     for review in reviews:
         user = review['UserID']
@@ -166,7 +167,15 @@ def productSida(Proid):
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM UserReviews WHERE ProductID=%s and UserID=%s', (Proid, userid,))
         theId = cursor.fetchone()
-        print(theId)
+
+##############################Need to fix this ##############################
+        try:
+            if userid == theId['UserID']:
+                delete = True
+        except:
+            delete = False
+##############################################################################
+
         if theId is None and request.method == "POST":
             try:
                 rate = request.form['rate']
@@ -198,4 +207,30 @@ def productSida(Proid):
                                    msg=msg, lista=lista)
 
     return render_template("Product-page.html", prods=prods, logged=logged, counter=counter, reviews=reviews,
-                           lista=lista)
+                           lista=lista, delete=delete)
+
+
+@UsersViews.route("/shop/product-<Proid>/<ReviewID>")
+def deletereview(Proid, ReviewID):
+    logged = False
+    try:
+        if session['email']:
+            logged = True
+    except:
+        logged = False
+
+    counter = 0
+    if logged:
+        counter = count(getUserid(session['email']))
+
+    if logged:
+        userid = getUserid(session['email'])
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('DELETE FROM UserReviews WHERE ProductID=%s and UserID=%s and ReviewID=%s',
+                       (Proid, userid, ReviewID))
+        mysql.connection.commit()
+        print("test")
+        return redirect(request.referrer)
+
+    else:
+        return redirect(request.referrer)
