@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 16, 2020 at 10:06 PM
+-- Generation Time: Dec 17, 2020 at 02:00 PM
 -- Server version: 5.7.18-log
 -- PHP Version: 7.1.6
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `db941227`
 --
+CREATE DATABASE IF NOT EXISTS `db941227` DEFAULT CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+USE `db941227`;
 
 -- --------------------------------------------------------
 
@@ -56,6 +58,14 @@ CREATE TABLE `Cart` (
   `Amount` int(11) NOT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `Cart`
+--
+
+INSERT INTO `Cart` (`CartID`, `UserID`, `ProductsID`, `Amount`, `Date`) VALUES
+(440, 57, 16, 1, '2020-12-17 01:02:55'),
+(450, 59, 16, 1, '2020-12-17 01:48:03');
 
 -- --------------------------------------------------------
 
@@ -113,7 +123,75 @@ INSERT INTO `OrderDetails` (`OrderDetailsID`, `OrderID`, `ProductID`, `BuyingPri
 (155, 120, 16, 300, 1),
 (156, 121, 15, 100, 1),
 (157, 121, 15, 100, 1),
-(158, 121, 15, 100, 1);
+(158, 121, 15, 100, 1),
+(159, 122, 15, 100, 1),
+(160, 123, 17, 20, 1),
+(161, 123, 17, 20, 1),
+(162, 123, 17, 20, 1),
+(163, 123, 17, 20, 1),
+(164, 123, 17, 20, 1),
+(165, 124, 16, 300, 1),
+(166, 125, 17, 20, 1),
+(167, 126, 15, 100, 1),
+(168, 127, 16, 300, 1),
+(169, 129, 16, 300, 1),
+(170, 130, 14, 150, 1),
+(171, 133, 16, 300, 1),
+(172, 133, 16, 300, 1),
+(173, 134, 17, 20, 1),
+(174, 134, 17, 20, 1),
+(175, 135, 16, 300, 1),
+(176, 135, 16, 300, 1),
+(177, 138, 17, 20, 1),
+(178, 139, 16, 300, 1),
+(179, 139, 16, 300, 1),
+(180, 139, 16, 300, 1),
+(181, 139, 16, 300, 1),
+(182, 139, 16, 300, 1),
+(183, 139, 16, 300, 1),
+(184, 139, 16, 300, 1),
+(185, 139, 16, 300, 1),
+(186, 139, 16, 300, 1),
+(187, 139, 16, 300, 1),
+(188, 139, 16, 300, 1),
+(189, 139, 16, 300, 1),
+(190, 139, 16, 300, 1),
+(191, 139, 16, 300, 1),
+(201, 141, 17, 20, 1),
+(202, 141, 17, 20, 1),
+(203, 141, 17, 20, 1),
+(204, 141, 17, 20, 1),
+(205, 141, 17, 20, 1),
+(206, 142, 15, 100, 1),
+(207, 143, 16, 300, 1),
+(208, 144, 16, 300, 1),
+(209, 145, 16, 300, 1),
+(210, 146, 17, 20, 1),
+(211, 147, 16, 300, 1),
+(212, 148, 16, 300, 1),
+(213, 149, 16, 300, 1),
+(214, 150, 16, 300, 1),
+(215, 151, 16, 300, 1),
+(216, 152, 16, 300, 1),
+(217, 153, 17, 20, 1),
+(218, 154, 16, 300, 1),
+(219, 155, 16, 300, 1),
+(220, 156, 17, 20, 1),
+(221, 157, 16, 300, 1),
+(222, 158, 17, 20, 1),
+(223, 159, 17, 20, 1),
+(224, 160, 17, 20, 1),
+(225, 161, 16, 300, 1),
+(226, 162, 17, 20, 1),
+(227, 163, 17, 20, 1),
+(235, 172, 15, 100, 1),
+(236, 173, 17, 20, 1),
+(237, 174, 16, 300, 1),
+(241, 178, 16, 300, 1),
+(242, 179, 17, 20, 1),
+(243, 179, 17, 20, 1),
+(244, 180, 16, 300, 1),
+(245, 180, 16, 300, 1);
 
 -- --------------------------------------------------------
 
@@ -129,7 +207,7 @@ CREATE TABLE `Orders` (
   `FirstName` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
   `LastName` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
   `ShippingAdress` text COLLATE utf8_swedish_ci NOT NULL,
-  `OrderPhoneNumber` int(30) NOT NULL,
+  `OrderPhoneNumber` varchar(30) COLLATE utf8_swedish_ci NOT NULL,
   `OrderEmail` char(255) COLLATE utf8_swedish_ci NOT NULL,
   `DataOfOrder` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
@@ -139,11 +217,53 @@ CREATE TABLE `Orders` (
 --
 
 INSERT INTO `Orders` (`OrderID`, `UserID`, `Amount`, `OrderStatus`, `FirstName`, `LastName`, `ShippingAdress`, `OrderPhoneNumber`, `OrderEmail`, `DataOfOrder`) VALUES
-(117, 45, 325, 'Canceled', 'nour', 'bahtite', 'test', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 16:54:23'),
-(118, 46, 325, 'Processing Order', 'tjenis', 'a', 'luleeee', 1234567890, 'A@A.A', '2020-12-16 19:01:20'),
-(119, 45, 3025, 'Processing Order', 'nour', 'bahtite', 'test', 707181110, 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 19:19:15'),
-(120, 56, 325, 'Processing Order', 'q', 'q', 'aasd', 1234567890, 'Q@Q.Q', '2020-12-16 20:57:26'),
-(121, 56, 325, 'Processing Order', 'q', 'q', 'ad', 1234567890, 'Q@Q.Q', '2020-12-16 21:02:29');
+(117, 45, 325, 'Canceled', 'nour', 'bahtite', 'test', '707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 16:54:23'),
+(118, 46, 325, 'Processing Order', 'tjenis', 'a', 'luleeee', '1234567890', 'A@A.A', '2020-12-16 19:01:20'),
+(119, 45, 3025, 'Processing Order', 'nour', 'bahtite', 'test', '707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 19:19:15'),
+(120, 56, 325, 'Processing Order', 'q', 'q', 'aasd', '1234567890', 'Q@Q.Q', '2020-12-16 20:57:26'),
+(121, 56, 325, 'Processing Order', 'q', 'q', 'ad', '1234567890', 'Q@Q.Q', '2020-12-16 21:02:29'),
+(122, 45, 125, 'Processing Order', 'nour', 'bahtite', 'test', '707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 21:13:20'),
+(123, 45, 125, 'Processing Order', 'nour', 'bahtite', 'test', '707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 21:13:49'),
+(124, 45, 325, 'Processing Order', 'nour', 'bahtite', 'test', '707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 21:14:02'),
+(125, 46, 45, 'Processing Order', 'tjenis', 'a', 'asd', '1234567890', 'A@A.A', '2020-12-16 21:14:58'),
+(126, 46, 125, 'Processing Order', 'tjenis', 'a', '113', '1234567890', 'A@A.A', '2020-12-16 21:19:36'),
+(127, 46, 325, 'Processing Order', 'tjenis', 'a', '123', '1234567890', 'A@A.A', '2020-12-16 21:28:32'),
+(129, 46, 325, 'Processing Order', 'tjenis', 'a', 'aa', '1234567890', 'A@A.A', '2020-12-16 21:38:50'),
+(130, 46, 175, 'Processing Order', 'tjenis', 'a', '1', '1234567890', 'A@A.A', '2020-12-16 21:45:25'),
+(133, 46, 625, 'Processing Order', 'tjenis', 'a', 'asdasdas', '1234567890', 'A@A.A', '2020-12-16 21:48:48'),
+(134, 46, 65, 'Processing Order', 'tjenis', 'a', 'asdasdas', '1234567890', 'A@A.A', '2020-12-16 21:50:39'),
+(135, 46, 625, 'Processing Order', 'tjenis', 'a', '456567', '1234567890', 'A@A.A', '2020-12-16 21:51:32'),
+(138, 46, 45, 'Processing Order', 'tjenis', 'a', 'asd', '1234567890', 'A@A.A', '2020-12-16 21:56:18'),
+(139, 46, 4225, 'Processing Order', 'tjenis', 'a', 'asddas', '1234567890', 'A@A.A', '2020-12-16 21:57:46'),
+(141, 45, 125, 'Processing Order', 'nour', 'bahtite', 'test', '707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-16 22:00:26'),
+(142, 58, 125, 'Processing Order', 'w', 'w', 'sd', '1234567890', 'W@W.W', '2020-12-17 01:17:17'),
+(143, 59, 325, 'Processing Order', 'e', 'e', 'fhskjl', '1234567890', 'E@E.E', '2020-12-17 01:19:18'),
+(144, 60, 325, 'Processing Order', 'b', 'b', 'hhz', '1234567890', '8@8.8', '2020-12-17 01:24:03'),
+(145, 60, 325, 'Processing Order', 'b', 'b', 'hhz', '999', '8@8.8', '2020-12-17 01:26:18'),
+(146, 60, 45, 'Processing Order', 'b', 'b', 'ggg', '9999999999', '8@8.8', '2020-12-17 01:32:00'),
+(147, 59, 325, 'Processing Order', 'e', 'e', 'asd', '1234567890', 'E@E.E', '2020-12-17 01:38:45'),
+(148, 59, 325, 'Processing Order', 'e', 'e', 'asd', '1234567890', 'E@E.E', '2020-12-17 01:40:11'),
+(149, 59, 325, 'Processing Order', 'e', 'e', '123', '1234567890', 'E@E.E', '2020-12-17 01:41:51'),
+(150, 59, 325, 'Processing Order', 'e', 'e', '123', '1234567890', 'E@E.E', '2020-12-17 01:46:08'),
+(151, 45, 325, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:25:58'),
+(152, 45, 325, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:26:09'),
+(153, 45, 45, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:26:19'),
+(154, 46, 325, 'Processing Order', 'tjenis', 'a', 'asd', '0123456789', 'A@A.A', '2020-12-17 12:28:25'),
+(155, 46, 325, 'Processing Order', 'tjenis', 'a', '123', '0123456789', 'A@A.A', '2020-12-17 12:28:49'),
+(156, 45, 45, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:29:59'),
+(157, 46, 325, 'Processing Order', 'tjenis', 'a', 'asd', '0123456789', 'A@A.A', '2020-12-17 12:31:52'),
+(158, 46, 45, 'Processing Order', 'tjenis', 'a', '123', '0123456789', 'A@A.A', '2020-12-17 12:33:16'),
+(159, 45, 45, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:34:00'),
+(160, 45, 45, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:34:09'),
+(161, 45, 325, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:34:52'),
+(162, 45, 45, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:35:38'),
+(163, 45, 45, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:35:59'),
+(172, 46, 125, 'Processing Order', 'tjenis', 'a', '123', '0123456789', 'A@A.A', '2020-12-17 12:45:17'),
+(173, 46, 45, 'Processing Order', 'tjenis', 'a', 'as', '0123456789', 'A@A.A', '2020-12-17 12:45:50'),
+(174, 46, 325, 'Processing Order', 'tjenis', 'a', 'asd', '0123456789', 'A@A.A', '2020-12-17 12:47:10'),
+(178, 46, 325, 'Processing Order', 'tjenis', 'a', '213', '0123456789', 'A@A.A', '2020-12-17 12:50:13'),
+(179, 45, 65, 'Processing Order', 'nour', 'bahtite', 'test', '0707181110', 'NOUR.BAHTITE@GMAIL.COM', '2020-12-17 12:51:24'),
+(180, 46, 625, 'Processing Order', 'tjenis', 'a', '123', '0123456789', 'A@A.A', '2020-12-17 12:54:42');
 
 -- --------------------------------------------------------
 
@@ -166,10 +286,10 @@ CREATE TABLE `Products` (
 --
 
 INSERT INTO `Products` (`ProductID`, `ProductName`, `ProductPrice`, `NumberInStock`, `Description`, `Rating`, `imageName`) VALUES
-(14, 'CURREN', 150, 100, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 4, 'cf508a4902f6d34e304c7b8ced614776.jpg'),
-(15, 'MiGEER', 100, 97, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 2, 'product-image-74862151.jpg'),
-(16, 'CITIZEN', 300, 88, 'Eco-Drive 200m', 0, 'watch-man-citizen-diver-eco-drive-200m-steel-black-dial-bn0190-82e.jpg'),
-(17, 'RED', 20, 100, 'Warm and soft hat', 1, '91291359_cw_front.jpg'),
+(14, 'CURREN', 150, 99, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 4, 'cf508a4902f6d34e304c7b8ced614776.jpg'),
+(15, 'MiGEER', 100, 93, 'Dial shape: Round\r\nMovement type: Quartz \r\nDisplay type: Pointer \r\nDial color: As in images', 2, 'product-image-74862151.jpg'),
+(16, 'CITIZEN', 300, 50, 'Eco-Drive 200m', 1, 'watch-man-citizen-diver-eco-drive-200m-steel-black-dial-bn0190-82e.jpg'),
+(17, 'RED', 20, 75, 'Warm and soft hat', 1, '91291359_cw_front.jpg'),
 (18, 'Green hat', 20, 100, 'Warm and soft', 0, 'beanie_classic_forest_green.jpg'),
 (19, 'Gray hat', 20, 100, 'Warm', 0, '666a-157078802986.jpg'),
 (20, 'lilac T-shirt', 10, 100, 'lilac ', 0, '1.jpg'),
@@ -230,7 +350,9 @@ CREATE TABLE `UserReviews` (
 
 INSERT INTO `UserReviews` (`ReviewID`, `UserID`, `ProductID`, `Review`, `Rating`, `time`) VALUES
 (41, 46, 15, '', 2, '2020-12-16 17:30:05'),
-(42, 46, 17, '', 1, '2020-12-16 17:31:40');
+(42, 46, 17, '', 1, '2020-12-16 17:31:40'),
+(43, 45, 16, '', 1, '2020-12-16 21:13:55'),
+(44, 46, 16, '', 1, '2020-12-17 12:46:42');
 
 -- --------------------------------------------------------
 
@@ -263,7 +385,11 @@ INSERT INTO `Users` (`UserID`, `FirstName`, `LastName`, `PhoneNumber`, `Email`, 
 (53, 'tony', 'tonfisk', '12345678', 'TONY@FISK.COM', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', NULL),
 (54, 'Nour', 'Bahtite', '+46707181110', 'D@D.D', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', NULL),
 (55, '1', '1', '0734993498', '1@1.1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', NULL),
-(56, 'q', 'q', '1234567890', 'Q@Q.Q', '8e35c2cd3bf6641bdb0e2050b76932cbb2e6034a0ddacc1d9bea82a6ba57f7cf', '');
+(56, 'q', 'q', '1234567890', 'Q@Q.Q', '8e35c2cd3bf6641bdb0e2050b76932cbb2e6034a0ddacc1d9bea82a6ba57f7cf', ''),
+(57, 'm', 'm', '9999999999', 'Y@Y.Y', 'a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa', ''),
+(58, 'w', 'w', '1234567890', 'W@W.W', '50e721e49c013f00c62cf59f2163542a9d8df02464efeb615d31051b0fddc326', ''),
+(59, 'e', 'e', '1234567890', 'E@E.E', '3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea', ''),
+(60, 'b', 'b', '9999999990', '8@8.8', '2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3', '');
 
 --
 -- Indexes for dumped tables
@@ -347,7 +473,7 @@ ALTER TABLE `Admin`
 -- AUTO_INCREMENT for table `Cart`
 --
 ALTER TABLE `Cart`
-  MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=393;
+  MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=472;
 --
 -- AUTO_INCREMENT for table `Categorys`
 --
@@ -357,12 +483,12 @@ ALTER TABLE `Categorys`
 -- AUTO_INCREMENT for table `OrderDetails`
 --
 ALTER TABLE `OrderDetails`
-  MODIFY `OrderDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+  MODIFY `OrderDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 --
 -- AUTO_INCREMENT for table `Orders`
 --
 ALTER TABLE `Orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 --
 -- AUTO_INCREMENT for table `Products`
 --
@@ -377,12 +503,12 @@ ALTER TABLE `ProductsCategory`
 -- AUTO_INCREMENT for table `UserReviews`
 --
 ALTER TABLE `UserReviews`
-  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- Constraints for dumped tables
 --
