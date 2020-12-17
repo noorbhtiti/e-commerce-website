@@ -80,7 +80,7 @@ def checkOut():
 
                 outOfStock = []
                 try:
-                    mysql.connection.start_transaction()
+                    #mysql.connection.start_transaction()
                     # Hitta nästa auto_increment på OrderID
                     #cursor.execute(
                     #    'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE (TABLE_NAME = "Orders");')
@@ -88,7 +88,7 @@ def checkOut():
 
                     # Skapa en ny Order
                     cursor.execute(
-                        'INSERT INTO `Orders`(`UserID`, `Amount`, `OrderStatus`,`FirstName`, `LastName`,`ShippingAdress`, `OrderPhoneNumber`, `OrderEmail`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',
+                        'START TRANSACTION; INSERT INTO `Orders`(`UserID`, `Amount`, `OrderStatus`,`FirstName`, `LastName`,`ShippingAdress`, `OrderPhoneNumber`, `OrderEmail`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',
                         (userid, price, "Processing Order", lista[0], lista[1], lista[4], lista[3], lista[2],))
                     
                     
@@ -111,6 +111,7 @@ def checkOut():
                         cursor.execute('DELETE FROM Cart WHERE UserID =%s and ProductsID = %s',
                                         (userid, x['ProductsID'],))
                     if len(outOfStock) == 0:
+                        
                         mysql.connection.commit()
                         raise
                     else:
@@ -127,7 +128,8 @@ def checkOut():
                     return redirect(url, code=302)
                 except:
                     flash("Något fel hände :( Testa gärna igen!")
-                    mysql.connection.rollback()
+                    #mysql.connection.rollback()
+                    cursor.execute("ROLLBACK")
                 finally:
                     cursor.close()
             else:
