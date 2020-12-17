@@ -81,10 +81,10 @@ def checkOut():
                 outOfStock = []
                 try:
                     #mysql.connection.start_transaction()
-                    # Hitta nästa auto_increment på OrderID
-                    #cursor.execute(
-                    #    'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE (TABLE_NAME = "Orders");')
-                    #nextID = cursor.fetchone()
+                    #Hitta nästa auto_increment på OrderID
+                    cursor.execute(
+                        'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE (TABLE_NAME = "Orders");')
+                    nextID = cursor.fetchone()
 
                     # Skapa en ny Order
                     cursor.execute(
@@ -93,7 +93,7 @@ def checkOut():
                     
                     
                     # Hitta nästa auto_increment på OrderID
-                    nextID = cursor.lastrowid
+                    #nextID = cursor.lastrowid
                     print(nextID)
                     print("################################################")
                     for x in prods:  # kopiera över allt från cart till orderdetails
@@ -107,13 +107,12 @@ def checkOut():
                                 outOfStock.append(a)
                         cursor.execute(
                             'INSERT INTO `OrderDetails`( `OrderID`, `ProductID`,`BuyingPrice` ,`Amount`) VALUES (%s,%s,%s,%s)',
-                            (nextID, x['ProductsID'], a['ProductPrice'], 1,))
+                            (nextID['AUTO_INCREMENT'], x['ProductsID'], a['ProductPrice'], 1,))
                         cursor.execute('DELETE FROM Cart WHERE UserID =%s and ProductsID = %s',
                                         (userid, x['ProductsID'],))
                     if len(outOfStock) == 0:
-                        
                         mysql.connection.commit()
-                        raise
+                        #raise
                     else:
                         message = "Den/Dessa varor har vi ont om i lagret: "
                         for i, x in enumerate(outOfStock):
@@ -124,12 +123,11 @@ def checkOut():
                                 message += x['ProductName']
                         session['orderMsg'] = message
                     
-                    url = "/place-order." + str(nextID)
+                    url = "/place-order." + str(nextID['AUTO_INCREMENT'])
                     return redirect(url, code=302)
                 except:
                     flash("Något fel hände :( Testa gärna igen!")
-                    #mysql.connection.rollback()
-                    cursor.execute("ROLLBACK")
+                    mysql.connection.rollback()
                 finally:
                     cursor.close()
             else:
