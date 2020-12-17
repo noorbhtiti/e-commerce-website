@@ -80,6 +80,7 @@ def checkOut():
 
                 outOfStock = []
                 try:
+                    mysql.connection.start_transaction()
                     # Hitta nästa auto_increment på OrderID
                     #cursor.execute(
                     #    'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE (TABLE_NAME = "Orders");')
@@ -111,6 +112,7 @@ def checkOut():
                                         (userid, x['ProductsID'],))
                     if len(outOfStock) == 0:
                         mysql.connection.commit()
+                        raise
                     else:
                         message = "Den/Dessa varor har vi ont om i lagret: "
                         for i, x in enumerate(outOfStock):
@@ -120,7 +122,7 @@ def checkOut():
                             else:
                                 message += x['ProductName']
                         session['orderMsg'] = message
-
+                    
                     url = "/place-order." + str(nextID)
                     return redirect(url, code=302)
                 except:
