@@ -191,6 +191,18 @@ class ProductView(ModelView):
             'Image', base_path=file_path, thumbnail_size=(100, 100, True))
     }
 
+    def on_model_change(self, form, model, is_created):
+        proudctNum = int(form.NumberInStock.data)
+        ProductPrice = int(form.ProductPrice.data)
+        print(proudctNum)
+        if proudctNum < 0:
+            print('noooooooooooooooo')
+            raise ValidationError(str(proudctNum) + " Number in stock cannot be less than 0 !")
+        if ProductPrice < 0:
+            print('yeeees')
+            raise ValidationError(str(ProductPrice)+ " Product price cannot be less than 0!")
+        return model
+
     def delete_model(self, model):
         x = str(model).split(", ")
         x = x[len(x)-1]
